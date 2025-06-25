@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>My Profile</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">{{ user.email }}</dd>
+                <dt class="col-sm-3">First Name</dt>
+                <dd class="col-sm-9">{{ user.firstName|default('—') }}</dd>
+                <dt class="col-sm-3">Last Name</dt>
+                <dd class="col-sm-9">{{ user.lastName|default('—') }}</dd>
+            </dl>
+            <div class="mt-3">
+                <a href="{{ path('admin_profile_edit') }}" class="btn btn-primary">Edit Info</a>
+                <a href="{{ path('admin_profile_password') }}" class="btn btn-warning">Change Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

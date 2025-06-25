@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ issue.title }} - Bug Tracker{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">{{ issue.title }}</h3>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="btn-group">
+                            <a href="{{ path('issue_edit', {id: issue.id}) }}" class="btn btn-primary">Edit</a>
+                            <form method="post" action="{{ path('issue_delete', {id: issue.id}) }}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this issue?')">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ issue.id) }}">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h5>Description</h5>
+                    <p class="card-text">{{ issue.description|nl2br }}</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Details</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>
+                                    <span class="badge bg-{{ issue.status == 'open' ? 'danger' : (issue.status == 'in_progress' ? 'warning' : 'success') }}">
+                                        {{ issue.status|replace({'_': ' '})|title }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Priority:</strong></td>
+                                <td>
+                                    <span class="badge bg-{{ issue.priority == 'high' ? 'danger' : (issue.priority == 'medium' ? 'warning' : 'info') }}">
+                                        {{ issue.priority|title }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Category:</strong></td>
+                                <td>{{ issue.category.name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Created:</strong></td>
+                                <td>{{ issue.createdAt|date('F d, Y \a\t H:i') }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Actions</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ path('app_home') }}" class="btn btn-secondary w-100 mb-2">Back to Issues</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('issue_index') }}" class="btn btn-outline-primary w-100 mb-2">Manage Issues</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

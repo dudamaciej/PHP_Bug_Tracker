@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bug Tracker - Issues{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Filter by Category</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="{{ path('app_home', {sort: sort_by, order: sort_order}) }}" 
+                       class="list-group-item list-group-item-action {{ selected_category is null ? 'active' : '' }}">
+                        All Categories ({{ total_issues }})
+                    </a>
+                    {% for category in categories %}
+                        <a href="{{ path('app_home', {category: category.id, sort: sort_by, order: sort_order}) }}" 
+                           class="list-group-item list-group-item-action {{ selected_category == category.id ? 'active' : '' }}">
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Issues</h2>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('issue_new') }}" class="btn btn-primary">Create New Issue</a>
+            {% endif %}
+        </div>
+
+        {% if issues is empty %}
+            <div class="alert alert-info">
+                <h5>No issues found</h5>
+                <p class="mb-0">There are no issues to display.{% if selected_category %} Try selecting a different category.{% endif %}</p>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Issues ({{ total_issues }})</h5>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                Sort by: {{ sort_by|title }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'createdAt', order: 'DESC'}) }}">Date (Newest)</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'createdAt', order: 'ASC'}) }}">Date (Oldest)</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'title', order: 'ASC'}) }}">Title (A-Z)</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'title', order: 'DESC'}) }}">Title (Z-A)</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'priority', order: 'DESC'}) }}">Priority (High-Low)</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'status', order: 'ASC'}) }}">Status</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_home', {category: selected_category, sort: 'category', order: 'ASC'}) }}">Category</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% for issue in issues %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title">
+                                            <a href="{{ path('issue_show', {id: issue.id}) }}" class="text-decoration-none">
+                                                {{ issue.title }}
+                                            </a>
+                                        </h5>
+                                        <p class="card-text text-muted">{{ issue.description|length > 150 ? issue.description|slice(0, 150) ~ '...' : issue.description }}</p>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <span class="badge bg-{{ issue.status == 'open' ? 'danger' : (issue.status == 'in_progress' ? 'warning' : 'success') }}">
+                                                {{ issue.status|title|replace({'_': ' '}) }}
+                                            </span>
+                                            <span class="badge bg-{{ issue.priority == 'high' ? 'danger' : (issue.priority == 'medium' ? 'warning' : 'secondary') }}">
+                                                {{ issue.priority|title }} Priority
+                                            </span>
+                                            <span class="badge bg-info">{{ issue.category.name }}</span>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">
+                                        {{ issue.createdAt|date('M j, Y') }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if total_pages > 1 %}
+                <nav aria-label="Issue pagination">
+                    <ul class="pagination justify-content-center">
+                        {% if current_page > 1 %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('app_home', {page: current_page - 1, category: selected_category, sort: sort_by, order: sort_order}) }}">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% for page in 1..total_pages %}
+                            <li class="page-item {{ page == current_page ? 'active' : '' }}">
+                                <a class="page-link" href="{{ path('app_home', {page: page, category: selected_category, sort: sort_by, order: sort_order}) }}">{{ page }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if current_page < total_pages %}
+                            <li class="page-item">
+                                <a class="page-link" href="{{ path('app_home', {page: current_page + 1, category: selected_category, sort: sort_by, order: sort_order}) }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 
