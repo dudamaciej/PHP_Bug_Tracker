@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -7,8 +18,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Security controller for authentication.
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * Handle user login.
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @return Response
+     */
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -23,10 +44,13 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * Handle user logout.
+     */
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
         // This method can be blank - it will be intercepted by the logout key on your firewall
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-} 
+}

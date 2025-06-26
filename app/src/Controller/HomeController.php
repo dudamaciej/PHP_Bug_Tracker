@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -12,23 +21,34 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Controller for public homepage and issue listing.
+ * Home controller for the main application.
  */
 class HomeController extends AbstractController
 {
-    public function __construct(
-        private IssueService $issueService,
-        private CategoryService $categoryService
-    ) {
+    /**
+     * Constructor.
+     *
+     * @param IssueService    $issueService
+     * @param CategoryService $categoryService
+     */
+    public function __construct(private IssueService $issueService, private CategoryService $categoryService)
+    {
     }
 
+    /**
+     * Display the home page with issues and categories.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response
     {
         $page = max(1, $request->query->getInt('page', 1));
         $categoryId = $request->query->getInt('category', 0);
         $categoryId = $categoryId > 0 ? $categoryId : null;
-        
+
         // Get sorting parameters
         $sortBy = $request->query->get('sort', 'createdAt');
         $sortOrder = $request->query->get('order', 'DESC');
@@ -50,4 +70,4 @@ class HomeController extends AbstractController
             'sort_order' => $sortOrder,
         ]);
     }
-} 
+}

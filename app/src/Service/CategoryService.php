@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the Bug Tracker application.
+ *
+ * (c) 2024 Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
 use App\Entity\Category;
@@ -11,29 +20,49 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Service for handling Category business logic.
+ * Service for managing categories.
  */
 class CategoryService
 {
-    public function __construct(
-        private EntityManagerInterface $entityManager,
-        private CategoryRepository $categoryRepository,
-        private AuthorizationCheckerInterface $authorizationChecker
-    ) {
+    /**
+     * Constructor.
+     *
+     * @param EntityManagerInterface        $entityManager
+     * @param CategoryRepository            $categoryRepository
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     */
+    public function __construct(private EntityManagerInterface $entityManager, private CategoryRepository $categoryRepository, private AuthorizationCheckerInterface $authorizationChecker)
+    {
     }
 
     /**
      * Get all categories ordered by name.
+     *
+     * @return Category[]
      */
-    public function getAllCategoriesOrdered(): array
+    public function getAllCategories(): array
     {
         return $this->categoryRepository->findAllOrderedByName();
     }
 
     /**
-     * Create a new category.
+     * Get all categories ordered by name (alias for getAllCategories).
+     *
+     * @return Category[]
      */
-    public function createCategory(Category $category): void
+    public function getAllCategoriesOrdered(): array
+    {
+        return $this->getAllCategories();
+    }
+
+    /**
+     * Create a new category.
+     *
+     * @param Category $category
+     *
+     * @return Category
+     */
+    public function createCategory(Category $category): Category
     {
         if (!$this->authorizationChecker->isGranted('CATEGORY_CREATE')) {
             throw new AccessDeniedException('You do not have permission to create categories.');
@@ -41,29 +70,41 @@ class CategoryService
 
         $this->entityManager->persist($category);
         $this->entityManager->flush();
+
+        return $category;
     }
 
     /**
      * Update an existing category.
+     *
+     * @param Category $category
+     *
+     * @return Category
      */
-    public function updateCategory(Category $category): void
+    public function updateCategory(Category $category): Category
     {
         if (!$this->authorizationChecker->isGranted('CATEGORY_EDIT', $category)) {
             throw new AccessDeniedException('You do not have permission to edit this category.');
         }
 
         $this->entityManager->flush();
+
+        return $category;
     }
 
     /**
      * Delete a category.
+     *
+     * @param Category $category
+     *
+     * @throws AccessDeniedException
      */
     public function deleteCategory(Category $category): void
     {
         if (!$this->authorizationChecker->isGranted('CATEGORY_DELETE', $category)) {
             // Check if the issue is related to having associated issues
             if ($category->getIssues()->count() > 0) {
-                throw new \InvalidArgumentException('Cannot delete category "' . $category->getName() . '" because it has ' . $category->getIssues()->count() . ' associated issue(s). Please reassign or delete the issues first.');
+                throw new AccessDeniedException(sprintf('Cannot delete category "%s" because it has %d associated issue(s). Please reassign or delete the issues first.', $category->getName(), $category->getIssues()->count()));
             }
             throw new AccessDeniedException('You do not have permission to delete this category.');
         }
@@ -74,11 +115,15 @@ class CategoryService
 
     /**
      * Find a category by ID.
+     *
+     * @param int $id
+     *
+     * @return Category|null
      */
     public function findCategory(int $id): ?Category
     {
         $category = $this->categoryRepository->find($id);
-        
+
         if ($category && !$this->authorizationChecker->isGranted('CATEGORY_VIEW', $category)) {
             throw new AccessDeniedException('You do not have permission to view this category.');
         }
@@ -88,8 +133,10 @@ class CategoryService
 
     /**
      * Get all categories (for admin).
+     *
+     * @return Category[]
      */
-    public function getAllCategories(): array
+    public function getAllCategoriesForAdmin(): array
     {
         if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException('You do not have permission to view all categories.');
@@ -97,4 +144,21 @@ class CategoryService
 
         return $this->categoryRepository->findAll();
     }
-} 
+
+    /**
+     * Get all categories for form choices.
+     *
+     * @return array
+     */
+    public function getCategoryChoices(): array
+    {
+        $categories = $this->getAllCategories();
+        $choices = [];
+
+        foreach ($categories as $category) {
+            $choices[$category->getName()] = $category->getId();
+        }
+
+        return $choices;
+    }
+}

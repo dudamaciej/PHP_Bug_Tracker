@@ -39,14 +39,6 @@ services:
     container_name: symfony_php
     volumes:
       - ./app:/home/wwwroot/app
-    environment:
-      - maildev_host=symfony_maildev
+    environment: []
     depends_on:
-      - maildev
       - mysql
-
-  maildev:
-    image: djfarrelly/maildev
-    container_name: symfony_maildev
-    ports:
-      - "8001:80"

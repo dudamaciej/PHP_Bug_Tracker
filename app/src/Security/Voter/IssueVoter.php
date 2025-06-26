@@ -1,6 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Security\Voter;
 
@@ -10,91 +17,103 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Voter for Issue entity authorization.
+ * Voter for Issue entity permissions.
  */
 class IssueVoter extends Voter
 {
     public const VIEW = 'ISSUE_VIEW';
-    public const CREATE = 'ISSUE_CREATE';
     public const EDIT = 'ISSUE_EDIT';
     public const DELETE = 'ISSUE_DELETE';
+    public const CREATE = 'ISSUE_CREATE';
 
     /**
-     * Determine if the voter supports the given attribute and subject.
+     * Determines if the voter supports the given attribute and subject.
+     *
+     * @param string $attribute The attribute to check
+     * @param mixed  $subject   The subject to check
+     *
+     * @return bool
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // Check if the attribute is one we support
-        if (!in_array($attribute, [self::VIEW, self::CREATE, self::EDIT, self::DELETE], true)) {
-            return false;
-        }
-
-        // For CREATE operations, subject can be null
-        if ($attribute === self::CREATE) {
-            return true;
-        }
-
-        // For other operations, subject must be an Issue
-        return $subject instanceof Issue;
+        return in_array($attribute, [self::VIEW, self::EDIT, self::DELETE, self::CREATE])
+            && ($subject instanceof Issue || $subject === null);
     }
 
     /**
-     * Perform a single access check operation on a given attribute, subject and token.
+     * Votes on the given attribute and subject.
+     *
+     * @param string         $attribute The attribute to vote on
+     * @param mixed          $subject   The subject to vote on
+     * @param TokenInterface $token     The security token
+     *
+     * @return bool
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        // If the user is not logged in, deny access
         if (!$user instanceof AdminUser) {
             return false;
         }
 
-        /** @var Issue $issue */
-        $issue = $subject;
-
         return match ($attribute) {
-            self::VIEW => $this->canView($issue, $user),
+            self::VIEW => $this->canView($subject, $user),
+            self::EDIT => $this->canEdit($subject, $user),
+            self::DELETE => $this->canDelete($subject, $user),
             self::CREATE => $this->canCreate($user),
-            self::EDIT => $this->canEdit($issue, $user),
-            self::DELETE => $this->canDelete($issue, $user),
             default => false,
         };
     }
 
     /**
-     * Check if user can view the issue.
+     * Checks if user can view the issue.
+     *
+     * @param Issue|null $issue The issue to check
+     * @param AdminUser  $user  The user to check
+     *
+     * @return bool
      */
-    private function canView(Issue $issue, AdminUser $user): bool
+    private function canView(?Issue $issue, AdminUser $user): bool
     {
-        // Anyone can view issues (public access)
-        return true;
+        return true; // All authenticated users can view issues
     }
 
     /**
-     * Check if user can create issues.
+     * Checks if user can create issues.
+     *
+     * @param AdminUser $user The user to check
+     *
+     * @return bool
      */
     private function canCreate(AdminUser $user): bool
     {
-        // Only admins can create issues
-        return in_array('ROLE_ADMIN', $user->getRoles(), true);
+        return true; // All authenticated users can create issues
     }
 
     /**
-     * Check if user can edit the issue.
+     * Checks if user can edit the issue.
+     *
+     * @param Issue     $issue The issue to check
+     * @param AdminUser $user  The user to check
+     *
+     * @return bool
      */
     private function canEdit(Issue $issue, AdminUser $user): bool
     {
-        // Only admins can edit issues
-        return in_array('ROLE_ADMIN', $user->getRoles(), true);
+        return $issue->getAuthor() === $user || $user->isAdmin();
     }
 
     /**
-     * Check if user can delete the issue.
+     * Checks if user can delete the issue.
+     *
+     * @param Issue     $issue The issue to check
+     * @param AdminUser $user  The user to check
+     *
+     * @return bool
      */
     private function canDelete(Issue $issue, AdminUser $user): bool
     {
-        // Only admins can delete issues
-        return in_array('ROLE_ADMIN', $user->getRoles(), true);
+        return $issue->getAuthor() === $user || $user->isAdmin();
     }
-} 
+}

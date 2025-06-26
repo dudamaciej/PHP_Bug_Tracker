@@ -1,6 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Form;
 
@@ -13,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Form type for Issue entity.
@@ -22,18 +27,25 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class IssueType extends AbstractType
 {
     /**
-     * Build the form.
+     * Builds the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options The form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class, [
+                'label' => 'Title',
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Enter issue title',
                 ],
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                     'rows' => 5,
@@ -41,15 +53,29 @@ class IssueType extends AbstractType
                 ],
             ])
             ->add('status', ChoiceType::class, [
-                'choices' => Issue::getStatusChoices(),
+                'label' => 'Status',
+                'required' => true,
+                'choices' => [
+                    'Open' => 'open',
+                    'In Progress' => 'in_progress',
+                    'Resolved' => 'resolved',
+                    'Closed' => 'closed',
+                ],
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-control',
                 ],
             ])
             ->add('priority', ChoiceType::class, [
-                'choices' => Issue::getPriorityChoices(),
+                'label' => 'Priority',
+                'required' => true,
+                'choices' => [
+                    'Low' => 'low',
+                    'Medium' => 'medium',
+                    'High' => 'high',
+                    'Critical' => 'critical',
+                ],
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-control',
                 ],
             ])
             ->add('category', EntityType::class, [
@@ -62,7 +88,9 @@ class IssueType extends AbstractType
     }
 
     /**
-     * Configure form options.
+     * Configures the form options.
+     *
+     * @param OptionsResolver $resolver The options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -71,4 +99,4 @@ class IssueType extends AbstractType
             'csrf_protection' => true,
         ]);
     }
-} 
+}

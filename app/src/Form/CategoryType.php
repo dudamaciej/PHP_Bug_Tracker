@@ -1,6 +1,13 @@
 <?php
 
-declare(strict_types=1);
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Form;
 
@@ -19,7 +26,10 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class CategoryType extends AbstractType
 {
     /**
-     * Build the form.
+     * Builds the form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options The form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -58,7 +68,9 @@ class CategoryType extends AbstractType
     }
 
     /**
-     * Configure form options.
+     * Configures the form options.
+     *
+     * @param OptionsResolver $resolver The options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -67,4 +79,4 @@ class CategoryType extends AbstractType
             'csrf_protection' => true,
         ]);
     }
-} 
+}

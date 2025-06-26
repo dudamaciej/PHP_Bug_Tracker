@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Bug Tracker application.
+ *
+ * (c) 2024 Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
@@ -15,6 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Category entity for organizing issues.
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\Table(name: "category")]
 class Category
 {
     #[ORM\Id]
@@ -39,24 +49,44 @@ class Category
     )]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Issue::class)]
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Issue::class, orphanRemoval: true)]
     private Collection $issues;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->issues = new ArrayCollection();
     }
 
+    /**
+     * Get the category ID.
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Get the category name.
+     *
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+    /**
+     * Set the category name.
+     *
+     * @param string $name
+     *
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -64,11 +94,23 @@ class Category
         return $this;
     }
 
+    /**
+     * Get the category description.
+     *
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+    /**
+     * Set the category description.
+     *
+     * @param string|null $description
+     *
+     * @return self
+     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;
@@ -84,20 +126,34 @@ class Category
         return $this->issues;
     }
 
+    /**
+     * Add an issue to this category.
+     *
+     * @param Issue $issue
+     *
+     * @return self
+     */
     public function addIssue(Issue $issue): self
     {
         if (!$this->issues->contains($issue)) {
-            $this->issues->add($issue);
+            $this->issues[] = $issue;
             $issue->setCategory($this);
         }
 
         return $this;
     }
 
+    /**
+     * Remove an issue from this category.
+     *
+     * @param Issue $issue
+     *
+     * @return self
+     */
     public function removeIssue(Issue $issue): self
     {
         if ($this->issues->removeElement($issue)) {
-            // Set the owning side to null (unless already changed)
+            // set the owning side to null (unless already changed)
             if ($issue->getCategory() === $this) {
                 $issue->setCategory(null);
             }
@@ -106,4 +162,3 @@ class Category
         return $this;
     }
 }
-

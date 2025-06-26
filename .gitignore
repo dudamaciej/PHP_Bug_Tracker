@@ -4,7 +4,7 @@ vendor
 .php_cs.cache
 .php-cs-fixer.cache
 .phpunit.result.cache
-
+.DS_Store
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -14,7 +14,6 @@ vendor
 /public/bundles/
 /var/
 /vendor/
-app/tests
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

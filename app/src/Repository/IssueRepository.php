@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/**
+ * This file is part of the Bug Tracker application.
+ *
+ * (c) 2024 Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Issue;
@@ -9,6 +18,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * Repository for Issue entity.
+ *
  * @extends ServiceEntityRepository<Issue>
  *
  * @method Issue|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,13 +29,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class IssueRepository extends ServiceEntityRepository
 {
+    /**
+     * Constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Issue::class);
     }
 
     /**
-     * Save an issue.
+     * Save an Issue entity.
+     *
+     * @param Issue $entity
+     * @param bool  $flush
      */
     public function save(Issue $entity, bool $flush = false): void
     {
@@ -36,7 +55,10 @@ class IssueRepository extends ServiceEntityRepository
     }
 
     /**
-     * Remove an issue.
+     * Remove an Issue entity.
+     *
+     * @param Issue $entity
+     * @param bool  $flush
      */
     public function remove(Issue $entity, bool $flush = false): void
     {
@@ -48,7 +70,15 @@ class IssueRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find issues with filter, pagination and sorting.
+     * Find issues with optional filtering and pagination.
+     *
+     * @param int|null $categoryId
+     * @param int      $page
+     * @param int      $limit
+     * @param string   $sortBy
+     * @param string   $sortOrder
+     *
+     * @return Issue[]
      */
     public function findIssuesWithFilter(?int $categoryId = null, int $page = 1, int $limit = 10, string $sortBy = 'createdAt', string $sortOrder = 'DESC'): array
     {
@@ -56,9 +86,9 @@ class IssueRepository extends ServiceEntityRepository
             ->leftJoin('i.category', 'c')
             ->addSelect('c');
 
-        if ($categoryId !== null) {
+        if ($categoryId) {
             $qb->andWhere('c.id = :categoryId')
-               ->setParameter('categoryId', $categoryId);
+                ->setParameter('categoryId', $categoryId);
         }
 
         // Validate sort field
@@ -68,21 +98,21 @@ class IssueRepository extends ServiceEntityRepository
         }
 
         // Validate sort order
-        $sortOrder = strtoupper($sortOrder) === 'ASC' ? 'ASC' : 'DESC';
+        $sortOrder = 'ASC' === strtoupper($sortOrder) ? 'ASC' : 'DESC';
 
         // Handle special case for category sorting
-        if ($sortBy === 'category') {
+        if ('category' === $sortBy) {
             $qb->orderBy('c.name', $sortOrder);
-        } elseif ($sortBy === 'priority') {
+        } elseif ('priority' === $sortBy) {
             // Custom priority sorting: high > medium > low
             $qb->addSelect('CASE 
                 WHEN i.priority = \'high\' THEN 1 
                 WHEN i.priority = \'medium\' THEN 2 
                 WHEN i.priority = \'low\' THEN 3 
                 ELSE 4 END AS HIDDEN priority_order')
-               ->orderBy('priority_order', $sortOrder === 'DESC' ? 'ASC' : 'DESC');
+               ->orderBy('priority_order', 'DESC' === $sortOrder ? 'ASC' : 'DESC');
         } else {
-            $qb->orderBy('i.' . $sortBy, $sortOrder);
+            $qb->orderBy('i.'.$sortBy, $sortOrder);
         }
 
         $offset = ($page - 1) * $limit;
@@ -93,17 +123,21 @@ class IssueRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count issues with filter.
+     * Count issues with optional filtering.
+     *
+     * @param int|null $categoryId
+     *
+     * @return int
      */
     public function countIssuesWithFilter(?int $categoryId = null): int
     {
         $qb = $this->createQueryBuilder('i')
             ->select('COUNT(i.id)');
 
-        if ($categoryId !== null) {
+        if ($categoryId) {
             $qb->leftJoin('i.category', 'c')
-               ->andWhere('c.id = :categoryId')
-               ->setParameter('categoryId', $categoryId);
+                ->andWhere('c.id = :categoryId')
+                ->setParameter('categoryId', $categoryId);
         }
 
         return (int) $qb->getQuery()->getSingleScalarResult();
@@ -111,6 +145,10 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Find issues by status.
+     *
+     * @param string $status
+     *
+     * @return Issue[]
      */
     public function findByStatus(string $status): array
     {
@@ -124,6 +162,10 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Find issues by priority.
+     *
+     * @param string $priority
+     *
+     * @return Issue[]
      */
     public function findByPriority(string $priority): array
     {
@@ -134,4 +176,4 @@ class IssueRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-} 
+}

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/wwwroot/app/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=12.3.0" rel="stylesheet" type="text/css">
+  <link href="_css/billboard.min.css?v=12.3.0" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=12.3.0" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/wwwroot/app/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classesCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#26">App\DataFixtures\AppFixtures</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/IssueType.php.html#27">App\Form\IssueType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#30">App\Controller\ProfileController</a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#29">App\Controller\CategoryController</a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#29">App\Controller\IssueController</a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Entity/Issue.php.html#24">App\Entity\Issue</a></td><td class="text-right">73%</td></tr>
+       <tr><td><a href="Service/CategoryService.php.html#25">App\Service\CategoryService</a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#26">App\Entity\AdminUser</a></td><td class="text-right">84%</td></tr>
+       <tr><td><a href="Controller/SecurityController.php.html#24">App\Controller\SecurityController</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Repository/IssueRepository.php.html#30">App\Repository\IssueRepository</a></td><td class="text-right">89%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/IssueController.php.html#29">App\Controller\IssueController</a></td><td class="text-right">46</td></tr>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#26">App\DataFixtures\AppFixtures</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#29">App\Controller\CategoryController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#26">App\Entity\AdminUser</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Service/CategoryService.php.html#25">App\Service\CategoryService</a></td><td class="text-right">18</td></tr>
+       <tr><td><a href="Repository/IssueRepository.php.html#30">App\Repository\IssueRepository</a></td><td class="text-right">16</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#30">App\Controller\ProfileController</a></td><td class="text-right">14</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodsCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/SecurityController.php.html#50"><abbr title="App\Controller\SecurityController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#33"><abbr title="App\DataFixtures\AppFixtures::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#42"><abbr title="App\DataFixtures\AppFixtures::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#109"><abbr title="App\Entity\AdminUser::getUsername">getUsername</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#219"><abbr title="App\Entity\AdminUser::getFullName">getFullName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#244"><abbr title="App\Entity\AdminUser::getSalt">getSalt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Issue.php.html#269"><abbr title="App\Entity\Issue::setCreatedAt">setCreatedAt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Issue.php.html#281"><abbr title="App\Entity\Issue::getStatusOptions">getStatusOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Issue.php.html#295"><abbr title="App\Entity\Issue::getPriorityOptions">getPriorityOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/IssueType.php.html#35"><abbr title="App\Form\IssueType::buildForm">buildForm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Form/IssueType.php.html#95"><abbr title="App\Form\IssueType::configureOptions">configureOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Service/CategoryService.php.html#153"><abbr title="App\Service\CategoryService::getCategoryChoices">getCategoryChoices</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#63"><abbr title="App\Controller\IssueController::testCreate">testCreate</abbr></a></td><td class="text-right">35%</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#177"><abbr title="App\Controller\CategoryController::delete">delete</abbr></a></td><td class="text-right">35%</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#254"><abbr title="App\Controller\IssueController::delete">delete</abbr></a></td><td class="text-right">41%</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#86"><abbr title="App\Controller\ProfileController::changePassword">changePassword</abbr></a></td><td class="text-right">55%</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#139"><abbr title="App\Controller\CategoryController::edit">edit</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#58"><abbr title="App\Controller\ProfileController::edit">edit</abbr></a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Repository/IssueRepository.php.html#83"><abbr title="App\Repository\IssueRepository::findIssuesWithFilter">findIssuesWithFilter</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#196"><abbr title="App\Controller\IssueController::edit">edit</abbr></a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#65"><abbr title="App\Controller\CategoryController::new">new</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#113"><abbr title="App\Controller\CategoryController::show">show</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#170"><abbr title="App\Controller\IssueController::show">show</abbr></a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="DataFixtures/AppFixtures.php.html#42"><abbr title="App\DataFixtures\AppFixtures::load">load</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#177"><abbr title="App\Controller\CategoryController::delete">delete</abbr></a></td><td class="text-right">15</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#254"><abbr title="App\Controller\IssueController::delete">delete</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#86"><abbr title="App\Controller\ProfileController::changePassword">changePassword</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#63"><abbr title="App\Controller\IssueController::testCreate">testCreate</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="Repository/IssueRepository.php.html#83"><abbr title="App\Repository\IssueRepository::findIssuesWithFilter">findIssuesWithFilter</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#139"><abbr title="App\Controller\CategoryController::edit">edit</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#196"><abbr title="App\Controller\IssueController::edit">edit</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/AdminUser.php.html#219"><abbr title="App\Entity\AdminUser::getFullName">getFullName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Service/CategoryService.php.html#153"><abbr title="App\Service\CategoryService::getCategoryChoices">getCategoryChoices</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#65"><abbr title="App\Controller\CategoryController::new">new</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Controller/ProfileController.php.html#58"><abbr title="App\Controller\ProfileController::edit">edit</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controller/CategoryController.php.html#113"><abbr title="App\Controller\CategoryController::show">show</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Controller/IssueController.php.html#170"><abbr title="App\Controller\IssueController::show">show</abbr></a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 12.3.0</a> using <a href="https://www.php.net/" target="_top">PHP 8.3.22</a> and <a href="https://phpunit.de/">PHPUnit 12.2.2</a> at Thu Jun 26 19:03:49 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/billboard.pkgd.min.js?v=12.3.0" type="text/javascript"></script>
+  <script type="application/json" id="complexity_class">[[70.3125,20,"Controller\/CategoryController.php.html#29","App\\Controller\\CategoryController"],[100,3,"Controller\/HomeController.php.html#26","App\\Controller\\HomeController"],[71.28712871287128,28,"Controller\/IssueController.php.html#29","App\\Controller\\IssueController"],[64.70588235294117,10,"Controller\/ProfileController.php.html#30","App\\Controller\\ProfileController"],[85.71428571428571,2,"Controller\/SecurityController.php.html#24","App\\Controller\\SecurityController"],[0,6,"DataFixtures\/AppFixtures.php.html#26","App\\DataFixtures\\AppFixtures"],[84.61538461538461,19,"Entity\/AdminUser.php.html#26","App\\Entity\\AdminUser"],[100,12,"Entity\/Category.php.html#26","App\\Entity\\Category"],[73.33333333333333,20,"Entity\/Issue.php.html#24","App\\Entity\\Issue"],[100,2,"Form\/CategoryType.php.html#26","App\\Form\\CategoryType"],[100,2,"Form\/ChangePasswordType.php.html#25","App\\Form\\ChangePasswordType"],[0,2,"Form\/IssueType.php.html#27","App\\Form\\IssueType"],[100,2,"Form\/ProfileType.php.html#23","App\\Form\\ProfileType"],[100,0,"Kernel.php.html#8","App\\Kernel"],[100,7,"Repository\/AdminUserRepository.php.html#33","App\\Repository\\AdminUserRepository"],[100,6,"Repository\/CategoryRepository.php.html#30","App\\Repository\\CategoryRepository"],[89.36170212765957,16,"Repository\/IssueRepository.php.html#30","App\\Repository\\IssueRepository"],[93.75,14,"Security\/Voter\/CategoryVoter.php.html#22","App\\Security\\Voter\\CategoryVoter"],[93.75,16,"Security\/Voter\/IssueVoter.php.html#22","App\\Security\\Voter\\IssueVoter"],[83.33333333333334,17,"Service\/CategoryService.php.html#25","App\\Service\\CategoryService"],[100,11,"Service\/IssueService.php.html#25","App\\Service\\IssueService"]]</script>
+  <script type="application/json" id="complexity_method">[[100,1,"Controller\/CategoryController.php.html#38","App\\Controller\\CategoryController::__construct"],[100,1,"Controller\/CategoryController.php.html#47","App\\Controller\\CategoryController::index"],[86.36363636363636,4,"Controller\/CategoryController.php.html#65","App\\Controller\\CategoryController::new"],[87.5,3,"Controller\/CategoryController.php.html#113","App\\Controller\\CategoryController::show"],[60,5,"Controller\/CategoryController.php.html#139","App\\Controller\\CategoryController::edit"],[35.714285714285715,6,"Controller\/CategoryController.php.html#177","App\\Controller\\CategoryController::delete"],[100,1,"Controller\/HomeController.php.html#34","App\\Controller\\HomeController::__construct"],[100,2,"Controller\/HomeController.php.html#45","App\\Controller\\HomeController::index"],[100,1,"Controller\/IssueController.php.html#39","App\\Controller\\IssueController::__construct"],[100,1,"Controller\/IssueController.php.html#48","App\\Controller\\IssueController::index"],[35,4,"Controller\/IssueController.php.html#63","App\\Controller\\IssueController::testCreate"],[93.10344827586206,8,"Controller\/IssueController.php.html#108","App\\Controller\\IssueController::new"],[87.5,3,"Controller\/IssueController.php.html#170","App\\Controller\\IssueController::show"],[77.77777777777779,6,"Controller\/IssueController.php.html#196","App\\Controller\\IssueController::edit"],[41.66666666666667,5,"Controller\/IssueController.php.html#254","App\\Controller\\IssueController::delete"],[100,1,"Controller\/ProfileController.php.html#39","App\\Controller\\ProfileController::view"],[70,3,"Controller\/ProfileController.php.html#58","App\\Controller\\ProfileController::edit"],[55.00000000000001,6,"Controller\/ProfileController.php.html#86","App\\Controller\\ProfileController::changePassword"],[100,1,"Controller\/SecurityController.php.html#33","App\\Controller\\SecurityController::login"],[0,1,"Controller\/SecurityController.php.html#50","App\\Controller\\SecurityController::logout"],[0,1,"DataFixtures\/AppFixtures.php.html#33","App\\DataFixtures\\AppFixtures::__construct"],[0,5,"DataFixtures\/AppFixtures.php.html#42","App\\DataFixtures\\AppFixtures::load"],[100,1,"Entity\/AdminUser.php.html#53","App\\Entity\\AdminUser::__construct"],[100,1,"Entity\/AdminUser.php.html#63","App\\Entity\\AdminUser::getId"],[100,1,"Entity\/AdminUser.php.html#73","App\\Entity\\AdminUser::getEmail"],[100,1,"Entity\/AdminUser.php.html#85","App\\Entity\\AdminUser::setEmail"],[100,1,"Entity\/AdminUser.php.html#99","App\\Entity\\AdminUser::getUserIdentifier"],[0,1,"Entity\/AdminUser.php.html#109","App\\Entity\\AdminUser::getUsername"],[100,1,"Entity\/AdminUser.php.html#119","App\\Entity\\AdminUser::getRoles"],[100,1,"Entity\/AdminUser.php.html#135","App\\Entity\\AdminUser::setRoles"],[100,1,"Entity\/AdminUser.php.html#147","App\\Entity\\AdminUser::getPassword"],[100,1,"Entity\/AdminUser.php.html#159","App\\Entity\\AdminUser::setPassword"],[100,1,"Entity\/AdminUser.php.html#171","App\\Entity\\AdminUser::getFirstName"],[100,1,"Entity\/AdminUser.php.html#183","App\\Entity\\AdminUser::setFirstName"],[100,1,"Entity\/AdminUser.php.html#195","App\\Entity\\AdminUser::getLastName"],[100,1,"Entity\/AdminUser.php.html#207","App\\Entity\\AdminUser::setLastName"],[0,2,"Entity\/AdminUser.php.html#219","App\\Entity\\AdminUser::getFullName"],[100,1,"Entity\/AdminUser.php.html#231","App\\Entity\\AdminUser::isAdmin"],[0,1,"Entity\/AdminUser.php.html#244","App\\Entity\\AdminUser::getSalt"],[100,1,"Entity\/AdminUser.php.html#252","App\\Entity\\AdminUser::eraseCredentials"],[100,1,"Entity\/Category.php.html#58","App\\Entity\\Category::__construct"],[100,1,"Entity\/Category.php.html#68","App\\Entity\\Category::getId"],[100,1,"Entity\/Category.php.html#78","App\\Entity\\Category::getName"],[100,1,"Entity\/Category.php.html#90","App\\Entity\\Category::setName"],[100,1,"Entity\/Category.php.html#102","App\\Entity\\Category::getDescription"],[100,1,"Entity\/Category.php.html#114","App\\Entity\\Category::setDescription"],[100,1,"Entity\/Category.php.html#124","App\\Entity\\Category::getIssues"],[100,2,"Entity\/Category.php.html#136","App\\Entity\\Category::addIssue"],[100,3,"Entity\/Category.php.html#153","App\\Entity\\Category::removeIssue"],[100,1,"Entity\/Issue.php.html#91","App\\Entity\\Issue::__construct"],[100,1,"Entity\/Issue.php.html#103","App\\Entity\\Issue::getId"],[100,1,"Entity\/Issue.php.html#113","App\\Entity\\Issue::getTitle"],[100,1,"Entity\/Issue.php.html#125","App\\Entity\\Issue::setTitle"],[100,1,"Entity\/Issue.php.html#137","App\\Entity\\Issue::getDescription"],[100,1,"Entity\/Issue.php.html#149","App\\Entity\\Issue::setDescription"],[100,1,"Entity\/Issue.php.html#161","App\\Entity\\Issue::getStatus"],[100,1,"Entity\/Issue.php.html#173","App\\Entity\\Issue::setStatus"],[100,1,"Entity\/Issue.php.html#185","App\\Entity\\Issue::getPriority"],[100,1,"Entity\/Issue.php.html#197","App\\Entity\\Issue::setPriority"],[100,1,"Entity\/Issue.php.html#209","App\\Entity\\Issue::getCategory"],[100,1,"Entity\/Issue.php.html#221","App\\Entity\\Issue::setCategory"],[100,1,"Entity\/Issue.php.html#233","App\\Entity\\Issue::getAuthor"],[100,1,"Entity\/Issue.php.html#245","App\\Entity\\Issue::setAuthor"],[100,1,"Entity\/Issue.php.html#257","App\\Entity\\Issue::getCreatedAt"],[0,1,"Entity\/Issue.php.html#269","App\\Entity\\Issue::setCreatedAt"],[0,1,"Entity\/Issue.php.html#281","App\\Entity\\Issue::getStatusOptions"],[0,1,"Entity\/Issue.php.html#295","App\\Entity\\Issue::getPriorityOptions"],[100,1,"Entity\/Issue.php.html#309","App\\Entity\\Issue::getStatusChoices"],[100,1,"Entity\/Issue.php.html#323","App\\Entity\\Issue::getPriorityChoices"],[100,1,"Form\/CategoryType.php.html#34","App\\Form\\CategoryType::buildForm"],[100,1,"Form\/CategoryType.php.html#75","App\\Form\\CategoryType::configureOptions"],[100,1,"Form\/ChangePasswordType.php.html#33","App\\Form\\ChangePasswordType::buildForm"],[100,1,"Form\/ChangePasswordType.php.html#74","App\\Form\\ChangePasswordType::configureOptions"],[0,1,"Form\/IssueType.php.html#35","App\\Form\\IssueType::buildForm"],[0,1,"Form\/IssueType.php.html#95","App\\Form\\IssueType::configureOptions"],[100,1,"Form\/ProfileType.php.html#31","App\\Form\\ProfileType::buildForm"],[100,1,"Form\/ProfileType.php.html#51","App\\Form\\ProfileType::configureOptions"],[100,1,"Repository\/AdminUserRepository.php.html#40","App\\Repository\\AdminUserRepository::__construct"],[100,2,"Repository\/AdminUserRepository.php.html#51","App\\Repository\\AdminUserRepository::save"],[100,2,"Repository\/AdminUserRepository.php.html#66","App\\Repository\\AdminUserRepository::remove"],[100,2,"Repository\/AdminUserRepository.php.html#81","App\\Repository\\AdminUserRepository::upgradePassword"],[100,1,"Repository\/CategoryRepository.php.html#37","App\\Repository\\CategoryRepository::__construct"],[100,2,"Repository\/CategoryRepository.php.html#48","App\\Repository\\CategoryRepository::save"],[100,2,"Repository\/CategoryRepository.php.html#63","App\\Repository\\CategoryRepository::remove"],[100,1,"Repository\/CategoryRepository.php.html#77","App\\Repository\\CategoryRepository::findAllOrderedByName"],[100,1,"Repository\/IssueRepository.php.html#37","App\\Repository\\IssueRepository::__construct"],[100,2,"Repository\/IssueRepository.php.html#48","App\\Repository\\IssueRepository::save"],[100,2,"Repository\/IssueRepository.php.html#63","App\\Repository\\IssueRepository::remove"],[76.19047619047619,7,"Repository\/IssueRepository.php.html#83","App\\Repository\\IssueRepository::findIssuesWithFilter"],[100,2,"Repository\/IssueRepository.php.html#132","App\\Repository\\IssueRepository::countIssuesWithFilter"],[100,1,"Repository\/IssueRepository.php.html#153","App\\Repository\\IssueRepository::findByStatus"],[100,1,"Repository\/IssueRepository.php.html#170","App\\Repository\\IssueRepository::findByPriority"],[100,3,"Security\/Voter\/CategoryVoter.php.html#37","App\\Security\\Voter\\CategoryVoter::supports"],[90,7,"Security\/Voter\/CategoryVoter.php.html#52","App\\Security\\Voter\\CategoryVoter::voteOnAttribute"],[100,1,"Security\/Voter\/CategoryVoter.php.html#77","App\\Security\\Voter\\CategoryVoter::canView"],[100,1,"Security\/Voter\/CategoryVoter.php.html#89","App\\Security\\Voter\\CategoryVoter::canCreate"],[100,1,"Security\/Voter\/CategoryVoter.php.html#102","App\\Security\\Voter\\CategoryVoter::canEdit"],[100,1,"Security\/Voter\/CategoryVoter.php.html#115","App\\Security\\Voter\\CategoryVoter::canDelete"],[100,3,"Security\/Voter\/IssueVoter.php.html#37","App\\Security\\Voter\\IssueVoter::supports"],[90,7,"Security\/Voter\/IssueVoter.php.html#52","App\\Security\\Voter\\IssueVoter::voteOnAttribute"],[100,1,"Security\/Voter\/IssueVoter.php.html#77","App\\Security\\Voter\\IssueVoter::canView"],[100,1,"Security\/Voter\/IssueVoter.php.html#89","App\\Security\\Voter\\IssueVoter::canCreate"],[100,2,"Security\/Voter\/IssueVoter.php.html#102","App\\Security\\Voter\\IssueVoter::canEdit"],[100,2,"Security\/Voter\/IssueVoter.php.html#115","App\\Security\\Voter\\IssueVoter::canDelete"],[100,1,"Service\/CategoryService.php.html#34","App\\Service\\CategoryService::__construct"],[100,1,"Service\/CategoryService.php.html#43","App\\Service\\CategoryService::getAllCategories"],[100,1,"Service\/CategoryService.php.html#53","App\\Service\\CategoryService::getAllCategoriesOrdered"],[100,2,"Service\/CategoryService.php.html#65","App\\Service\\CategoryService::createCategory"],[100,2,"Service\/CategoryService.php.html#84","App\\Service\\CategoryService::updateCategory"],[100,3,"Service\/CategoryService.php.html#102","App\\Service\\CategoryService::deleteCategory"],[100,3,"Service\/CategoryService.php.html#123","App\\Service\\CategoryService::findCategory"],[100,2,"Service\/CategoryService.php.html#139","App\\Service\\CategoryService::getAllCategoriesForAdmin"],[0,2,"Service\/CategoryService.php.html#153","App\\Service\\CategoryService::getCategoryChoices"],[100,1,"Service\/IssueService.php.html#34","App\\Service\\IssueService::__construct"],[100,1,"Service\/IssueService.php.html#49","App\\Service\\IssueService::getIssuesWithFilter"],[100,1,"Service\/IssueService.php.html#63","App\\Service\\IssueService::countIssuesWithFilter"],[100,2,"Service\/IssueService.php.html#75","App\\Service\\IssueService::createIssue"],[100,2,"Service\/IssueService.php.html#94","App\\Service\\IssueService::updateIssue"],[100,2,"Service\/IssueService.php.html#110","App\\Service\\IssueService::deleteIssue"],[100,1,"Service\/IssueService.php.html#127","App\\Service\\IssueService::findIssue"],[100,1,"Service\/IssueService.php.html#137","App\\Service\\IssueService::getAllIssues"]]</script>
+  <script type="text/javascript" defer>
+  const barLabels = [
+    '0%',
+    '0-10%',
+    '10-20%',
+    '20-30%',
+    '30-40%',
+    '40-50%',
+    '50-60%',
+    '60-70%',
+    '70-80%',
+    '80-90%',
+    '90-100%',
+    '100%'
+  ];
+  const barConfig = (name, fullName, values) => ({
+    axis: {
+      x: {
+        type: "category",
+        categories: barLabels,
+      },
+      y: {
+        label: {
+          text: `#${name}`,
+          position: 'outer-top',
+        },
+      },
+    },
+    bindto: `#${name}CoverageDistribution`,
+    data: {
+      columns: [
+        [fullName].concat(values),
+      ],
+      colors: {
+        [fullName]: "rgba(69, 114, 167, 0.75)",
+      },
+      type: "bar",
+    },
+    bar: {
+      width: {
+        ratio: 0.9,
+      },
+    },
+    grid: {
+      focus: {
+        show: false,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">Coverage ${barLabels[data[0].x]}</th></tr>
+            <tr><td class="value">${data[0].value} ${name}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  bb.generate(
+    barConfig('classes', "Class Coverage", [2,0,0,0,0,0,0,1,3,4,2,9])
+  );
+  bb.generate(
+    barConfig('methods', "Method Coverage", [12,0,0,0,2,1,1,1,3,3,3,95])
+  );
+
+  const scatterConfig = (name, complexityData) => ({
+    axis: {
+      x: {
+        label: {
+          text: 'Code Coverage (in percent)',
+          position: 'outer-right',
+        },
+        tick: {
+          values: [0, 20, 40, 60, 80, 100],
+        },
+      },
+      y: {
+        label: {
+          text: 'Cyclomatic Complexity',
+          position: 'outer-top',
+        },
+        min: 0,
+        padding: {
+          bottom: 0,
+          top: 5,
+        },
+      },
+    },
+    bindto: `#${name}Complexity`,
+    data: {
+      columns: [
+        ["complexity_x"].concat(complexityData.map(d => d[0])),
+        ["complexity"].concat(complexityData.map(d => d[1])),
+      ],
+      onclick: function(data, element) {
+        window.location = complexityData[data.index][2];
+      },
+      type: "scatter",
+      xs: {
+        "complexity": "complexity_x",
+      },
+    },
+    grid: {
+      focus: {
+        show: true,
+        y: true,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        const coverage = Math.round(data[0].x);
+        const complexity = data[0].value;
+        const targetName = complexityData[data[0].index][3];
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">${targetName}</th></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Coverage</td><td class="name">${coverage}%</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Complexity</td><td class="value">${complexity}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  const classComplexityData = JSON.parse(document.getElementById('complexity_class').textContent);
+  bb.generate(
+    scatterConfig("class", classComplexityData)
+  );
+  const methodComplexityData = JSON.parse(document.getElementById('complexity_method').textContent);
+  bb.generate(
+    scatterConfig("method", methodComplexityData),
+  );
+  </script>
+ </body>
+</html>

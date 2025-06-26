@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
 use App\Entity\Issue;
-use App\Form\IssueType;
 use App\Service\CategoryService;
 use App\Service\IssueService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,15 +29,23 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/issue')]
 class IssueController extends AbstractController
 {
-    public function __construct(
-        private IssueService $issueService,
-        private CategoryService $categoryService,
-        private EntityManagerInterface $entityManager
-    ) {
+    /**
+     * Constructor.
+     *
+     * @param IssueService           $issueService
+     * @param CategoryService        $categoryService
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(private IssueService $issueService, private CategoryService $categoryService, private EntityManagerInterface $entityManager)
+    {
     }
 
+    /**
+     * Display the list of all issues.
+     *
+     * @return Response
+     */
     #[Route('/', name: 'issue_index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
         $issues = $this->issueService->getAllIssues();
@@ -39,6 +55,11 @@ class IssueController extends AbstractController
         ]);
     }
 
+    /**
+     * Test issue creation endpoint.
+     *
+     * @return Response
+     */
     #[Route('/test-create', name: 'issue_test_create', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function testCreate(): Response
@@ -46,30 +67,44 @@ class IssueController extends AbstractController
         try {
             $categoryRepository = $this->entityManager->getRepository(\App\Entity\Category::class);
             $category = $categoryRepository->find(5); // Get first category
-            
+
             if (!$category) {
                 throw new \Exception('No category found');
             }
-            
+
             $issue = new Issue();
             $issue->setTitle('Test Issue from Controller');
             $issue->setDescription('This is a test issue created directly from the controller.');
             $issue->setStatus(Issue::STATUS_OPEN);
             $issue->setPriority(Issue::PRIORITY_MEDIUM);
             $issue->setCategory($category);
-            
+
+            // Set the current user as the author
+            $user = $this->getUser();
+            if ($user instanceof \App\Entity\AdminUser) {
+                $issue->setAuthor($user);
+            } else {
+                throw new \Exception('User not authenticated or not an admin user.');
+            }
+
             $this->entityManager->persist($issue);
             $this->entityManager->flush();
-            
-            $this->addFlash('success', 'Test issue created successfully with ID: ' . $issue->getId());
-            
+
+            $this->addFlash('success', 'Test issue created successfully with ID: '.$issue->getId());
         } catch (\Exception $e) {
-            $this->addFlash('error', 'Error creating test issue: ' . $e->getMessage());
+            $this->addFlash('error', 'Error creating test issue: '.$e->getMessage());
         }
-        
+
         return $this->redirectToRoute('issue_index');
     }
 
+    /**
+     * Create a new issue.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     #[Route('/new', name: 'issue_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request): Response
@@ -77,38 +112,46 @@ class IssueController extends AbstractController
         // Get all categories for the form
         $categoryRepository = $this->entityManager->getRepository(\App\Entity\Category::class);
         $categories = $categoryRepository->findAll();
-        
+
         if ($request->isMethod('POST')) {
             try {
                 $formData = $request->request->all();
                 $issueData = $formData['issue'] ?? [];
-                
+
                 // Validate required fields
                 if (empty($issueData['title']) || empty($issueData['description']) || empty($issueData['category'])) {
                     throw new \Exception('Please fill in all required fields.');
                 }
-                
+
                 $category = $categoryRepository->find($issueData['category']);
-                
+
                 if (!$category) {
                     throw new \Exception('Selected category not found.');
                 }
-                
+
                 $issue = new Issue();
                 $issue->setTitle($issueData['title']);
                 $issue->setDescription($issueData['description']);
                 $issue->setStatus($issueData['status'] ?? Issue::STATUS_OPEN);
                 $issue->setPriority($issueData['priority'] ?? Issue::PRIORITY_MEDIUM);
                 $issue->setCategory($category);
-                
+
+                // Set the current user as the author
+                $user = $this->getUser();
+                if ($user instanceof \App\Entity\AdminUser) {
+                    $issue->setAuthor($user);
+                } else {
+                    throw new \Exception('User not authenticated or not an admin user.');
+                }
+
                 $this->entityManager->persist($issue);
                 $this->entityManager->flush();
-                
-                $this->addFlash('success', 'Issue created successfully with ID: ' . $issue->getId());
+
+                $this->addFlash('success', 'Issue created successfully with ID: '.$issue->getId());
+
                 return $this->redirectToRoute('issue_index');
-                
             } catch (\Exception $e) {
-                $this->addFlash('error', 'Error creating issue: ' . $e->getMessage());
+                $this->addFlash('error', 'Error creating issue: '.$e->getMessage());
             }
         }
 
@@ -117,12 +160,19 @@ class IssueController extends AbstractController
         ]);
     }
 
+    /**
+     * Display a specific issue.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     #[Route('/{id}', name: 'issue_show', methods: ['GET'])]
     public function show(int $id): Response
     {
         try {
             $issue = $this->issueService->findIssue($id);
-            
+
             if (!$issue) {
                 throw $this->createNotFoundException('Issue not found.');
             }
@@ -135,13 +185,21 @@ class IssueController extends AbstractController
         }
     }
 
+    /**
+     * Edit an existing issue.
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Response
+     */
     #[Route('/{id}/edit', name: 'issue_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, int $id): Response
     {
         try {
             $issue = $this->issueService->findIssue($id);
-            
+
             if (!$issue) {
                 throw $this->createNotFoundException('Issue not found.');
             }
@@ -153,27 +211,26 @@ class IssueController extends AbstractController
             if ($request->isMethod('POST')) {
                 $formData = $request->request->all();
                 $issueData = $formData['issue'] ?? [];
-                
+
                 try {
                     $category = $categoryRepository->find($issueData['category'] ?? null);
-                    
+
                     if (!$category) {
                         throw new \Exception('Selected category not found.');
                     }
-                    
+
                     $issue->setTitle($issueData['title'] ?? '');
                     $issue->setDescription($issueData['description'] ?? '');
                     $issue->setStatus($issueData['status'] ?? Issue::STATUS_OPEN);
                     $issue->setPriority($issueData['priority'] ?? Issue::PRIORITY_MEDIUM);
                     $issue->setCategory($category);
-                    
+
                     $this->entityManager->flush();
                     $this->addFlash('success', 'Issue updated successfully.');
-                    
+
                     return $this->redirectToRoute('issue_show', ['id' => $issue->getId()]);
-                    
                 } catch (\Exception $e) {
-                    $this->addFlash('error', 'Error updating issue: ' . $e->getMessage());
+                    $this->addFlash('error', 'Error updating issue: '.$e->getMessage());
                 }
             }
 
@@ -186,13 +243,21 @@ class IssueController extends AbstractController
         }
     }
 
+    /**
+     * Delete an issue.
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Response
+     */
     #[Route('/{id}/delete', name: 'issue_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, int $id): Response
     {
         try {
             $issue = $this->issueService->findIssue($id);
-            
+
             if (!$issue) {
                 throw $this->createNotFoundException('Issue not found.');
             }
@@ -206,9 +271,9 @@ class IssueController extends AbstractController
         } catch (\AccessDeniedException $e) {
             throw $this->createAccessDeniedException($e->getMessage());
         } catch (\Exception $e) {
-            $this->addFlash('error', 'Error deleting issue: ' . $e->getMessage());
+            $this->addFlash('error', 'Error deleting issue: '.$e->getMessage());
         }
 
         return $this->redirectToRoute('issue_index');
     }
-} 
+}

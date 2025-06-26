@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the PHP Bug Tracker project.
+ *
+ * (c) 2024 PHP Bug Tracker Team
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace App\DataFixtures;
 
 use App\Entity\AdminUser;
@@ -9,15 +20,25 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Application fixtures for loading initial data.
+ */
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    /**
+     * Constructor.
+     *
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
+    public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
     }
 
+    /**
+     * Load fixtures.
+     *
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager): void
     {
         // Create admin user
@@ -61,105 +82,105 @@ class AppFixtures extends Fixture
                 'description' => 'The login form does not display properly on mobile devices. The input fields are too small and the submit button is cut off on smaller screens.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'UI/UX'
+                'category' => 'UI/UX',
             ],
             [
                 'title' => 'Database query optimization needed',
                 'description' => 'The issue listing page is loading slowly due to inefficient database queries. Need to optimize the queries and add proper indexing.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Performance'
+                'category' => 'Performance',
             ],
             [
                 'title' => 'Email notifications not working',
                 'description' => 'Users are not receiving email notifications when issues are assigned to them. The email service configuration needs to be fixed.',
                 'status' => Issue::STATUS_CLOSED,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Bug'
+                'category' => 'Bug',
             ],
             [
                 'title' => 'Fix pagination on mobile',
                 'description' => 'The pagination controls are not touch-friendly on mobile devices and need to be redesigned.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_MEDIUM,
-                'category' => 'UI/UX'
+                'category' => 'UI/UX',
             ],
             [
                 'title' => 'Memory leak in issue listing',
                 'description' => 'There is a memory leak when displaying large numbers of issues. Need to implement proper memory management.',
                 'status' => Issue::STATUS_CLOSED,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Performance'
+                'category' => 'Performance',
             ],
             [
                 'title' => 'SQL injection vulnerability in search',
                 'description' => 'The search functionality is vulnerable to SQL injection attacks. Need to implement proper parameterized queries.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Security'
+                'category' => 'Security',
             ],
             [
                 'title' => 'API rate limiting not working',
                 'description' => 'The API endpoints are not properly rate limited, allowing potential abuse. Need to implement proper rate limiting.',
                 'status' => Issue::STATUS_IN_PROGRESS,
                 'priority' => Issue::PRIORITY_MEDIUM,
-                'category' => 'API'
+                'category' => 'API',
             ],
             [
                 'title' => 'Database connection pooling needed',
                 'description' => 'Database connections are not being pooled efficiently, causing connection exhaustion under load.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_MEDIUM,
-                'category' => 'Database'
+                'category' => 'Database',
             ],
             [
                 'title' => 'Mobile app crashes on iOS 17',
                 'description' => 'The mobile app crashes immediately on iOS 17 devices. Need to investigate compatibility issues.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Mobile'
+                'category' => 'Mobile',
             ],
             [
                 'title' => 'Unit test coverage below 80%',
                 'description' => 'The current unit test coverage is only 65%. Need to add more tests to reach the 80% target.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_LOW,
-                'category' => 'Testing'
+                'category' => 'Testing',
             ],
             [
                 'title' => 'API documentation outdated',
                 'description' => 'The API documentation is outdated and missing several new endpoints. Need to update the docs.',
                 'status' => Issue::STATUS_IN_PROGRESS,
                 'priority' => Issue::PRIORITY_LOW,
-                'category' => 'Documentation'
+                'category' => 'Documentation',
             ],
             [
                 'title' => 'Docker container memory limit exceeded',
                 'description' => 'The Docker containers are exceeding their memory limits in production, causing crashes.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_HIGH,
-                'category' => 'Deployment'
+                'category' => 'Deployment',
             ],
             [
                 'title' => 'Screen reader compatibility issues',
                 'description' => 'The application is not fully compatible with screen readers. Need to improve accessibility.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_MEDIUM,
-                'category' => 'Accessibility'
+                'category' => 'Accessibility',
             ],
             [
                 'title' => 'Missing French translation strings',
                 'description' => 'Several UI elements are not translated to French. Need to add missing translation keys.',
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_LOW,
-                'category' => 'Internationalization'
+                'category' => 'Internationalization',
             ],
             [
                 'title' => 'Backend validation logic inconsistent',
                 'description' => 'The backend validation logic is inconsistent across different endpoints. Need to standardize.',
                 'status' => Issue::STATUS_IN_PROGRESS,
                 'priority' => Issue::PRIORITY_MEDIUM,
-                'category' => 'Backend'
+                'category' => 'Backend',
             ],
         ];
 
@@ -169,7 +190,7 @@ class AppFixtures extends Fixture
             $issue->setDescription($issueData['description']);
             $issue->setStatus($issueData['status']);
             $issue->setPriority($issueData['priority']);
-            
+
             // Find the category by name
             $category = null;
             foreach ($categoryEntities as $cat) {
@@ -179,10 +200,13 @@ class AppFixtures extends Fixture
                 }
             }
             $issue->setCategory($category);
-            
+
+            // Set the author to the admin user
+            $issue->setAuthor($adminUser);
+
             $manager->persist($issue);
         }
 
         $manager->flush();
     }
-} 
+}
