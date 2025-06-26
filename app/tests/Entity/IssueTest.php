@@ -44,11 +44,11 @@ class IssueTest extends TestCase
     public function testSetInvalidStatus(): void
     {
         $issue = new Issue();
-        
+
         // Since we removed validation from setters, this should not throw an exception
         // The validation is now handled by Symfony's form validation
         $issue->setStatus('invalid_status');
-        
+
         $this->assertEquals('invalid_status', $issue->getStatus());
     }
 
@@ -64,11 +64,11 @@ class IssueTest extends TestCase
     public function testSetInvalidPriority(): void
     {
         $issue = new Issue();
-        
+
         // Since we removed validation from setters, this should not throw an exception
         // The validation is now handled by Symfony's form validation
         $issue->setPriority('invalid_priority');
-        
+
         $this->assertEquals('invalid_priority', $issue->getPriority());
     }
 
@@ -93,4 +93,4 @@ class IssueTest extends TestCase
         $this->assertEquals(Issue::PRIORITY_MEDIUM, $choices['Medium']);
         $this->assertEquals(Issue::PRIORITY_HIGH, $choices['High']);
     }
-} 
+}

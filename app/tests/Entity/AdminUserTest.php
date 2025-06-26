@@ -41,4 +41,4 @@ class AdminUserTest extends TestCase
         $user->setEmail('admin@example.com');
         $this->assertEquals('admin@example.com', $user->getUserIdentifier());
     }
-} 
+}

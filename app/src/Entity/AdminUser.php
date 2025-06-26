@@ -19,12 +19,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class AdminUser
+ * Class AdminUser.
  *
  * Represents a admin user in the system.
  */
 #[ORM\Entity(repositoryClass: AdminUserRepository::class)]
-#[ORM\Table(name: "admin_user")]
+#[ORM\Table(name: 'admin_user')]
 class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -57,8 +57,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the user ID.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -67,8 +65,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the user email.
-     *
-     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -77,10 +73,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Set the user email.
-     *
-     * @param string $email
-     *
-     * @return self
      */
     public function setEmail(string $email): self
     {
@@ -93,8 +85,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
-     *
-     * @return string
      */
     public function getUserIdentifier(): string
     {
@@ -103,8 +93,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier() instead
-     *
-     * @return string
      */
     public function getUsername(): string
     {
@@ -113,8 +101,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
-     *
-     * @return array
      */
     public function getRoles(): array
     {
@@ -127,10 +113,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Set the user roles.
-     *
-     * @param array $roles
-     *
-     * @return self
      */
     public function setRoles(array $roles): self
     {
@@ -141,8 +123,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see PasswordAuthenticatedUserInterface
-     *
-     * @return string
      */
     public function getPassword(): string
     {
@@ -151,10 +131,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Set the user password.
-     *
-     * @param string $password
-     *
-     * @return self
      */
     public function setPassword(string $password): self
     {
@@ -165,8 +141,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the user's first name.
-     *
-     * @return string|null
      */
     public function getFirstName(): ?string
     {
@@ -175,10 +149,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Set the user's first name.
-     *
-     * @param string|null $firstName
-     *
-     * @return self
      */
     public function setFirstName(?string $firstName): self
     {
@@ -189,8 +159,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the user's last name.
-     *
-     * @return string|null
      */
     public function getLastName(): ?string
     {
@@ -199,10 +167,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Set the user's last name.
-     *
-     * @param string|null $lastName
-     *
-     * @return self
      */
     public function setLastName(?string $lastName): self
     {
@@ -213,8 +177,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Get the user's full name.
-     *
-     * @return string
      */
     public function getFullName(): string
     {
@@ -225,8 +187,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Check if the user is an admin.
-     *
-     * @return bool
      */
     public function isAdmin(): bool
     {
@@ -238,8 +198,6 @@ class AdminUser implements UserInterface, PasswordAuthenticatedUserInterface
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
-     *
-     * @return string|null
      */
     public function getSalt(): ?string
     {

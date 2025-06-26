@@ -30,4 +30,4 @@ class SmokeCoverageTest extends TestCase
         $this->assertTrue(class_exists(\App\Repository\CategoryRepository::class));
         $this->assertTrue(class_exists(\App\Repository\IssueRepository::class));
     }
-} 
+}

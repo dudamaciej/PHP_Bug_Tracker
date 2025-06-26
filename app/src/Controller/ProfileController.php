@@ -33,8 +33,6 @@ class ProfileController extends AbstractController
 {
     /**
      * Display user profile.
-     *
-     * @return Response
      */
     #[Route('/', name: 'admin_profile')]
     public function view(): Response
@@ -49,11 +47,6 @@ class ProfileController extends AbstractController
 
     /**
      * Edit user profile.
-     *
-     * @param Request                $request
-     * @param EntityManagerInterface $em
-     *
-     * @return Response
      */
     #[Route('/edit', name: 'admin_profile_edit')]
     public function edit(Request $request, EntityManagerInterface $em): Response
@@ -76,12 +69,6 @@ class ProfileController extends AbstractController
 
     /**
      * Change user password.
-     *
-     * @param Request                     $request
-     * @param EntityManagerInterface      $em
-     * @param UserPasswordHasherInterface $hasher
-     *
-     * @return Response
      */
     #[Route('/password', name: 'admin_profile_password')]
     public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $hasher): Response

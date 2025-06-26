@@ -31,10 +31,6 @@ class IssueController extends AbstractController
 {
     /**
      * Constructor.
-     *
-     * @param IssueService           $issueService
-     * @param CategoryService        $categoryService
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(private IssueService $issueService, private CategoryService $categoryService, private EntityManagerInterface $entityManager)
     {
@@ -42,8 +38,6 @@ class IssueController extends AbstractController
 
     /**
      * Display the list of all issues.
-     *
-     * @return Response
      */
     #[Route('/', name: 'issue_index', methods: ['GET'])]
     public function index(): Response
@@ -57,8 +51,6 @@ class IssueController extends AbstractController
 
     /**
      * Test issue creation endpoint.
-     *
-     * @return Response
      */
     #[Route('/test-create', name: 'issue_test_create', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -100,10 +92,6 @@ class IssueController extends AbstractController
 
     /**
      * Create a new issue.
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     #[Route('/new', name: 'issue_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -162,10 +150,6 @@ class IssueController extends AbstractController
 
     /**
      * Display a specific issue.
-     *
-     * @param int $id
-     *
-     * @return Response
      */
     #[Route('/{id}', name: 'issue_show', methods: ['GET'])]
     public function show(int $id): Response
@@ -187,11 +171,6 @@ class IssueController extends AbstractController
 
     /**
      * Edit an existing issue.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
      */
     #[Route('/{id}/edit', name: 'issue_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
@@ -245,11 +224,6 @@ class IssueController extends AbstractController
 
     /**
      * Delete an issue.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
      */
     #[Route('/{id}/delete', name: 'issue_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]

@@ -31,8 +31,6 @@ class IssueRepository extends ServiceEntityRepository
 {
     /**
      * Constructor.
-     *
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,9 +39,6 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Save an Issue entity.
-     *
-     * @param Issue $entity
-     * @param bool  $flush
      */
     public function save(Issue $entity, bool $flush = false): void
     {
@@ -56,9 +51,6 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Remove an Issue entity.
-     *
-     * @param Issue $entity
-     * @param bool  $flush
      */
     public function remove(Issue $entity, bool $flush = false): void
     {
@@ -71,12 +63,6 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Find issues with optional filtering and pagination.
-     *
-     * @param int|null $categoryId
-     * @param int      $page
-     * @param int      $limit
-     * @param string   $sortBy
-     * @param string   $sortOrder
      *
      * @return Issue[]
      */
@@ -124,10 +110,6 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Count issues with optional filtering.
-     *
-     * @param int|null $categoryId
-     *
-     * @return int
      */
     public function countIssuesWithFilter(?int $categoryId = null): int
     {
@@ -146,8 +128,6 @@ class IssueRepository extends ServiceEntityRepository
     /**
      * Find issues by status.
      *
-     * @param string $status
-     *
      * @return Issue[]
      */
     public function findByStatus(string $status): array
@@ -162,8 +142,6 @@ class IssueRepository extends ServiceEntityRepository
 
     /**
      * Find issues by priority.
-     *
-     * @param string $priority
      *
      * @return Issue[]
      */

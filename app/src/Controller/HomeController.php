@@ -27,9 +27,6 @@ class HomeController extends AbstractController
 {
     /**
      * Constructor.
-     *
-     * @param IssueService    $issueService
-     * @param CategoryService $categoryService
      */
     public function __construct(private IssueService $issueService, private CategoryService $categoryService)
     {
@@ -37,10 +34,6 @@ class HomeController extends AbstractController
 
     /**
      * Display the home page with issues and categories.
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     #[Route('/', name: 'app_home')]
     public function index(Request $request): Response

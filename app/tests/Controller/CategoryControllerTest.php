@@ -5,7 +5,6 @@ namespace App\Tests\Controller;
 use App\Entity\AdminUser;
 use App\Entity\Category;
 use App\Entity\Issue;
-use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -64,8 +63,8 @@ class CategoryControllerTest extends WebTestCase
         $this->client->request('POST', '/category/new', [
             'category' => [
                 'name' => 'Test Category',
-                'description' => 'Test Description'
-            ]
+                'description' => 'Test Description',
+            ],
         ]);
 
         $this->assertResponseRedirects('/category/');
@@ -81,8 +80,8 @@ class CategoryControllerTest extends WebTestCase
         $this->client->request('POST', '/category/new', [
             'category' => [
                 'name' => '', // Empty name should trigger validation error
-                'description' => 'Test Description'
-            ]
+                'description' => 'Test Description',
+            ],
         ]);
 
         $this->assertResponseRedirects('/category/new');
@@ -103,7 +102,7 @@ class CategoryControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('GET', '/category/' . $category->getId());
+        $this->client->request('GET', '/category/'.$category->getId());
 
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('Test Category', $this->client->getResponse()->getContent());
@@ -132,7 +131,7 @@ class CategoryControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('GET', '/category/' . $category->getId() . '/edit');
+        $this->client->request('GET', '/category/'.$category->getId().'/edit');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
@@ -157,11 +156,11 @@ class CategoryControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('POST', '/category/' . $category->getId() . '/edit', [
+        $this->client->request('POST', '/category/'.$category->getId().'/edit', [
             'category' => [
                 'name' => 'Updated Category',
-                'description' => 'Updated Description'
-            ]
+                'description' => 'Updated Description',
+            ],
         ]);
 
         $this->assertResponseIsSuccessful();
@@ -180,11 +179,11 @@ class CategoryControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('POST', '/category/' . $category->getId() . '/edit', [
+        $this->client->request('POST', '/category/'.$category->getId().'/edit', [
             'category' => [
                 'name' => 'A', // Too short name (less than 2 characters)
-                'description' => 'Updated Description'
-            ]
+                'description' => 'Updated Description',
+            ],
         ]);
 
         $this->assertResponseIsSuccessful();
@@ -205,11 +204,11 @@ class CategoryControllerTest extends WebTestCase
         $this->client->loginUser($adminUser);
 
         // Get the CSRF token from the edit form
-        $crawler = $this->client->request('GET', '/category/' . $category->getId() . '/edit');
+        $crawler = $this->client->request('GET', '/category/'.$category->getId().'/edit');
         $token = $crawler->filter('input[name="category[_token]"]')->attr('value');
 
-        $this->client->request('POST', '/category/' . $category->getId() . '/delete', [
-            '_token' => $token
+        $this->client->request('POST', '/category/'.$category->getId().'/delete', [
+            '_token' => $token,
         ]);
 
         $this->assertResponseRedirects('/category/');
@@ -229,8 +228,8 @@ class CategoryControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('POST', '/category/' . $category->getId() . '/delete', [
-            '_token' => 'invalid_token'
+        $this->client->request('POST', '/category/'.$category->getId().'/delete', [
+            '_token' => 'invalid_token',
         ]);
 
         $this->assertResponseRedirects('/category/');
@@ -265,11 +264,11 @@ class CategoryControllerTest extends WebTestCase
         $this->client->loginUser($adminUser);
 
         // Get the CSRF token from the edit form
-        $crawler = $this->client->request('GET', '/category/' . $category->getId() . '/edit');
+        $crawler = $this->client->request('GET', '/category/'.$category->getId().'/edit');
         $token = $crawler->filter('input[name="category[_token]"]')->attr('value');
 
-        $this->client->request('POST', '/category/' . $category->getId() . '/delete', [
-            '_token' => $token
+        $this->client->request('POST', '/category/'.$category->getId().'/delete', [
+            '_token' => $token,
         ]);
 
         $this->assertResponseRedirects('/category/');
@@ -282,7 +281,7 @@ class CategoryControllerTest extends WebTestCase
         // Get the existing admin user from fixtures
         $adminUser = $this->entityManager->getRepository(AdminUser::class)
             ->findOneBy(['email' => 'admin@bugtracker.com']);
-        
+
         if (!$adminUser) {
             // Create one if it doesn't exist
             $adminUser = new AdminUser();
@@ -292,7 +291,7 @@ class CategoryControllerTest extends WebTestCase
             $this->entityManager->persist($adminUser);
             $this->entityManager->flush();
         }
-        
+
         return $adminUser;
     }
-} 
+}

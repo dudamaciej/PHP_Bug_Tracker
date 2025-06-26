@@ -35,7 +35,7 @@ class CategoryServiceTest extends TestCase
     {
         $categories = [
             new Category(),
-            new Category()
+            new Category(),
         ];
 
         $this->categoryRepository
@@ -239,7 +239,7 @@ class CategoryServiceTest extends TestCase
     {
         $categories = [
             new Category(),
-            new Category()
+            new Category(),
         ];
 
         $this->authorizationChecker
@@ -270,4 +270,4 @@ class CategoryServiceTest extends TestCase
 
         $this->categoryService->getAllCategoriesForAdmin();
     }
-} 
+}

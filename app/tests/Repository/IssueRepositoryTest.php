@@ -30,7 +30,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         $issue = new Issue();
         $issue->setTitle('Test Issue');
         $issue->setDescription('Test Description');
@@ -42,7 +42,7 @@ class IssueRepositoryTest extends KernelTestCase
         $this->repository->save($issue, true);
 
         $this->assertNotNull($issue->getId());
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -53,7 +53,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         $issue = new Issue();
         $issue->setTitle('Test Issue 2');
         $issue->setDescription('Test Description 2');
@@ -66,7 +66,7 @@ class IssueRepositoryTest extends KernelTestCase
 
         // Should not have an ID yet since flush wasn't called
         $this->assertNull($issue->getId());
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -77,7 +77,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // First create an issue
         $issue = new Issue();
         $issue->setTitle('Test Issue 3');
@@ -88,7 +88,7 @@ class IssueRepositoryTest extends KernelTestCase
         $issue->setAuthor($adminUser);
         $this->entityManager->persist($issue);
         $this->entityManager->flush();
-        
+
         $issueId = $issue->getId();
 
         // Now remove it
@@ -97,7 +97,7 @@ class IssueRepositoryTest extends KernelTestCase
         // Verify it's gone
         $removedIssue = $this->repository->find($issueId);
         $this->assertNull($removedIssue);
-        
+
         // Clean up
         $this->entityManager->remove($category);
         $this->entityManager->flush();
@@ -107,7 +107,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // First create an issue
         $issue = new Issue();
         $issue->setTitle('Test Issue 4');
@@ -118,7 +118,7 @@ class IssueRepositoryTest extends KernelTestCase
         $issue->setAuthor($adminUser);
         $this->entityManager->persist($issue);
         $this->entityManager->flush();
-        
+
         $issueId = $issue->getId();
 
         // Remove without flush
@@ -127,7 +127,7 @@ class IssueRepositoryTest extends KernelTestCase
         // Should still exist since flush wasn't called
         $existingIssue = $this->repository->find($issueId);
         $this->assertNotNull($existingIssue);
-        
+
         // Clean up
         $this->entityManager->remove($existingIssue);
         $this->entityManager->remove($category);
@@ -138,7 +138,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // Create an issue with specific status
         $issue = new Issue();
         $issue->setTitle('Test Issue 5');
@@ -151,10 +151,10 @@ class IssueRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
 
         $foundIssues = $this->repository->findByStatus(Issue::STATUS_IN_PROGRESS);
-        
+
         $this->assertIsArray($foundIssues);
         $this->assertGreaterThanOrEqual(1, count($foundIssues));
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -165,7 +165,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // Create an issue with specific priority
         $issue = new Issue();
         $issue->setTitle('Test Issue 6');
@@ -178,10 +178,10 @@ class IssueRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
 
         $foundIssues = $this->repository->findByPriority(Issue::PRIORITY_LOW);
-        
+
         $this->assertIsArray($foundIssues);
         $this->assertGreaterThanOrEqual(1, count($foundIssues));
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -192,7 +192,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // Create multiple issues
         $issue1 = new Issue();
         $issue1->setTitle('Test Issue 7');
@@ -228,7 +228,7 @@ class IssueRepositoryTest extends KernelTestCase
         $allIssues = $this->repository->findIssuesWithFilter();
         $this->assertIsArray($allIssues);
         $this->assertGreaterThanOrEqual(2, count($allIssues));
-        
+
         // Clean up
         $this->entityManager->remove($issue1);
         $this->entityManager->remove($issue2);
@@ -240,7 +240,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // Create an issue
         $issue = new Issue();
         $issue->setTitle('Test Issue 9');
@@ -259,7 +259,7 @@ class IssueRepositoryTest extends KernelTestCase
         // Test counting without filter
         $totalCount = $this->repository->countIssuesWithFilter();
         $this->assertGreaterThanOrEqual(1, $totalCount);
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -276,7 +276,7 @@ class IssueRepositoryTest extends KernelTestCase
     {
         $category = $this->createTestCategory();
         $adminUser = $this->getExistingAdminUser();
-        
+
         // Create an issue
         $issue = new Issue();
         $issue->setTitle('Test Issue 10');
@@ -292,7 +292,7 @@ class IssueRepositoryTest extends KernelTestCase
         $foundIssues = $this->repository->findBy(['status' => Issue::STATUS_OPEN]);
         $this->assertIsArray($foundIssues);
         $this->assertGreaterThanOrEqual(1, count($foundIssues));
-        
+
         // Clean up
         $this->entityManager->remove($issue);
         $this->entityManager->remove($category);
@@ -306,7 +306,7 @@ class IssueRepositoryTest extends KernelTestCase
         $category->setDescription('Test Description');
         $this->entityManager->persist($category);
         $this->entityManager->flush();
-        
+
         return $category;
     }
 
@@ -315,7 +315,7 @@ class IssueRepositoryTest extends KernelTestCase
         // Get the existing admin user from fixtures
         $adminUser = $this->entityManager->getRepository(AdminUser::class)
             ->findOneBy(['email' => 'admin@bugtracker.com']);
-        
+
         if (!$adminUser) {
             // Create one if it doesn't exist
             $adminUser = new AdminUser();
@@ -325,7 +325,7 @@ class IssueRepositoryTest extends KernelTestCase
             $this->entityManager->persist($adminUser);
             $this->entityManager->flush();
         }
-        
+
         return $adminUser;
     }
-} 
+}

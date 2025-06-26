@@ -26,10 +26,6 @@ class IssueService
 {
     /**
      * Constructor.
-     *
-     * @param EntityManagerInterface        $entityManager
-     * @param IssueRepository               $issueRepository
-     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(private EntityManagerInterface $entityManager, private IssueRepository $issueRepository, private AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -37,12 +33,6 @@ class IssueService
 
     /**
      * Get issues with optional filtering and pagination.
-     *
-     * @param int|null $categoryId
-     * @param int      $page
-     * @param int      $limit
-     * @param string   $sortBy
-     * @param string   $sortOrder
      *
      * @return Issue[]
      */
@@ -55,10 +45,6 @@ class IssueService
 
     /**
      * Count issues with optional filtering.
-     *
-     * @param int|null $categoryId
-     *
-     * @return int
      */
     public function countIssuesWithFilter(?int $categoryId = null): int
     {
@@ -67,10 +53,6 @@ class IssueService
 
     /**
      * Create a new issue.
-     *
-     * @param Issue $issue
-     *
-     * @return Issue
      */
     public function createIssue(Issue $issue): Issue
     {
@@ -86,10 +68,6 @@ class IssueService
 
     /**
      * Update an existing issue.
-     *
-     * @param Issue $issue
-     *
-     * @return Issue
      */
     public function updateIssue(Issue $issue): Issue
     {
@@ -104,8 +82,6 @@ class IssueService
 
     /**
      * Delete an issue.
-     *
-     * @param Issue $issue
      */
     public function deleteIssue(Issue $issue): void
     {
@@ -119,10 +95,6 @@ class IssueService
 
     /**
      * Find an issue by ID.
-     *
-     * @param int $id
-     *
-     * @return Issue|null
      */
     public function findIssue(int $id): ?Issue
     {

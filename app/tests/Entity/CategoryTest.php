@@ -63,4 +63,4 @@ class CategoryTest extends TestCase
 
         $this->assertEquals(1, $this->category->getIssues()->count());
     }
-} 
+}

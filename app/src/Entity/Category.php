@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Category entity for organizing issues.
  */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[ORM\Table(name: "category")]
+#[ORM\Table(name: 'category')]
 class Category
 {
     #[ORM\Id]
@@ -62,8 +62,6 @@ class Category
 
     /**
      * Get the category ID.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -72,8 +70,6 @@ class Category
 
     /**
      * Get the category name.
-     *
-     * @return string|null
      */
     public function getName(): ?string
     {
@@ -82,10 +78,6 @@ class Category
 
     /**
      * Set the category name.
-     *
-     * @param string $name
-     *
-     * @return self
      */
     public function setName(string $name): self
     {
@@ -96,8 +88,6 @@ class Category
 
     /**
      * Get the category description.
-     *
-     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -106,10 +96,6 @@ class Category
 
     /**
      * Set the category description.
-     *
-     * @param string|null $description
-     *
-     * @return self
      */
     public function setDescription(?string $description): self
     {
@@ -128,10 +114,6 @@ class Category
 
     /**
      * Add an issue to this category.
-     *
-     * @param Issue $issue
-     *
-     * @return self
      */
     public function addIssue(Issue $issue): self
     {
@@ -145,10 +127,6 @@ class Category
 
     /**
      * Remove an issue from this category.
-     *
-     * @param Issue $issue
-     *
-     * @return self
      */
     public function removeIssue(Issue $issue): self
     {

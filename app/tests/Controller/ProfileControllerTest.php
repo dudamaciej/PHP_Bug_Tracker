@@ -3,12 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\AdminUser;
-use App\Form\ChangePasswordType;
-use App\Form\ProfileType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ProfileControllerTest extends WebTestCase
 {
@@ -66,7 +61,7 @@ class ProfileControllerTest extends WebTestCase
             'profile' => [
                 'firstName' => 'John',
                 'lastName' => 'Doe',
-            ]
+            ],
         ]);
 
         $this->assertResponseIsSuccessful();
@@ -82,7 +77,7 @@ class ProfileControllerTest extends WebTestCase
             'profile' => [
                 'firstName' => '', // Empty first name
                 'lastName' => 'Doe',
-            ]
+            ],
         ]);
 
         $this->assertResponseIsSuccessful();
@@ -118,9 +113,9 @@ class ProfileControllerTest extends WebTestCase
                 'currentPassword' => 'admin123',
                 'newPassword' => [
                     'first' => 'newpassword123',
-                    'second' => 'newpassword123'
-                ]
-            ]
+                    'second' => 'newpassword123',
+                ],
+            ],
         ]);
 
         $this->assertResponseRedirects('/admin/profile/password');
@@ -138,9 +133,9 @@ class ProfileControllerTest extends WebTestCase
                 'currentPassword' => 'wrongpassword',
                 'newPassword' => [
                     'first' => 'newpassword123',
-                    'second' => 'newpassword123'
-                ]
-            ]
+                    'second' => 'newpassword123',
+                ],
+            ],
         ]);
 
         $this->assertResponseRedirects('/admin/profile/password');
@@ -158,9 +153,9 @@ class ProfileControllerTest extends WebTestCase
                 'currentPassword' => 'admin123',
                 'newPassword' => [
                     'first' => 'newpassword123',
-                    'second' => 'differentpassword'
-                ]
-            ]
+                    'second' => 'differentpassword',
+                ],
+            ],
         ]);
 
         $this->assertResponseRedirects('/admin/profile/password');
@@ -178,9 +173,9 @@ class ProfileControllerTest extends WebTestCase
                 'currentPassword' => '',
                 'newPassword' => [
                     'first' => '',
-                    'second' => ''
-                ]
-            ]
+                    'second' => '',
+                ],
+            ],
         ]);
 
         $this->assertResponseRedirects('/admin/profile/password');
@@ -193,7 +188,7 @@ class ProfileControllerTest extends WebTestCase
         // Get the existing admin user from fixtures
         $adminUser = $this->entityManager->getRepository(AdminUser::class)
             ->findOneBy(['email' => 'admin@bugtracker.com']);
-        
+
         if (!$adminUser) {
             // Create one if it doesn't exist
             $adminUser = new AdminUser();
@@ -203,7 +198,7 @@ class ProfileControllerTest extends WebTestCase
             $this->entityManager->persist($adminUser);
             $this->entityManager->flush();
         }
-        
+
         return $adminUser;
     }
-} 
+}

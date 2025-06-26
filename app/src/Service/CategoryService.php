@@ -26,10 +26,6 @@ class CategoryService
 {
     /**
      * Constructor.
-     *
-     * @param EntityManagerInterface        $entityManager
-     * @param CategoryRepository            $categoryRepository
-     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(private EntityManagerInterface $entityManager, private CategoryRepository $categoryRepository, private AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -57,10 +53,6 @@ class CategoryService
 
     /**
      * Create a new category.
-     *
-     * @param Category $category
-     *
-     * @return Category
      */
     public function createCategory(Category $category): Category
     {
@@ -76,10 +68,6 @@ class CategoryService
 
     /**
      * Update an existing category.
-     *
-     * @param Category $category
-     *
-     * @return Category
      */
     public function updateCategory(Category $category): Category
     {
@@ -94,8 +82,6 @@ class CategoryService
 
     /**
      * Delete a category.
-     *
-     * @param Category $category
      *
      * @throws AccessDeniedException
      */
@@ -115,10 +101,6 @@ class CategoryService
 
     /**
      * Find a category by ID.
-     *
-     * @param int $id
-     *
-     * @return Category|null
      */
     public function findCategory(int $id): ?Category
     {
@@ -147,8 +129,6 @@ class CategoryService
 
     /**
      * Get all categories for form choices.
-     *
-     * @return array
      */
     public function getCategoryChoices(): array
     {

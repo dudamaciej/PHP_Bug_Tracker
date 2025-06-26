@@ -34,8 +34,6 @@ class AdminUserRepository extends ServiceEntityRepository implements PasswordUpg
 {
     /**
      * Constructor.
-     *
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -44,9 +42,6 @@ class AdminUserRepository extends ServiceEntityRepository implements PasswordUpg
 
     /**
      * Save an AdminUser entity.
-     *
-     * @param AdminUser $entity
-     * @param bool      $flush
      */
     public function save(AdminUser $entity, bool $flush = false): void
     {
@@ -59,9 +54,6 @@ class AdminUserRepository extends ServiceEntityRepository implements PasswordUpg
 
     /**
      * Remove an AdminUser entity.
-     *
-     * @param AdminUser $entity
-     * @param bool      $flush
      */
     public function remove(AdminUser $entity, bool $flush = false): void
     {
@@ -74,9 +66,6 @@ class AdminUserRepository extends ServiceEntityRepository implements PasswordUpg
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
-     *
-     * @param PasswordAuthenticatedUserInterface $user
-     * @param string                             $newHashedPassword
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {

@@ -33,7 +33,7 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->repository->save($category, true);
 
         $this->assertNotNull($category->getId());
-        
+
         // Clean up
         $this->entityManager->remove($category);
         $this->entityManager->flush();
@@ -49,7 +49,7 @@ class CategoryRepositoryTest extends KernelTestCase
 
         // Should not have an ID yet since flush wasn't called
         $this->assertNull($category->getId());
-        
+
         // Clean up
         $this->entityManager->remove($category);
         $this->entityManager->flush();
@@ -63,7 +63,7 @@ class CategoryRepositoryTest extends KernelTestCase
         $category->setDescription('Test Description 3');
         $this->entityManager->persist($category);
         $this->entityManager->flush();
-        
+
         $categoryId = $category->getId();
 
         // Now remove it
@@ -82,7 +82,7 @@ class CategoryRepositoryTest extends KernelTestCase
         $category->setDescription('Test Description 4');
         $this->entityManager->persist($category);
         $this->entityManager->flush();
-        
+
         $categoryId = $category->getId();
 
         // Remove without flush
@@ -91,7 +91,7 @@ class CategoryRepositoryTest extends KernelTestCase
         // Should still exist since flush wasn't called
         $existingCategory = $this->repository->find($categoryId);
         $this->assertNotNull($existingCategory);
-        
+
         // Clean up
         $this->entityManager->remove($existingCategory);
         $this->entityManager->flush();
@@ -107,10 +107,10 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
 
         $foundCategory = $this->repository->findOneBy(['name' => 'Test Category 5']);
-        
+
         $this->assertNotNull($foundCategory);
         $this->assertEquals('Test Category 5', $foundCategory->getName());
-        
+
         // Clean up
         $this->entityManager->remove($foundCategory);
         $this->entityManager->flush();
@@ -119,7 +119,7 @@ class CategoryRepositoryTest extends KernelTestCase
     public function testFindAll(): void
     {
         $categories = $this->repository->findAll();
-        
+
         $this->assertIsArray($categories);
         $this->assertGreaterThanOrEqual(0, count($categories));
     }
@@ -134,11 +134,11 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
 
         $foundCategories = $this->repository->findBy(['description' => 'Unique Description']);
-        
+
         $this->assertIsArray($foundCategories);
         $this->assertCount(1, $foundCategories);
         $this->assertEquals('Unique Description', $foundCategories[0]->getDescription());
-        
+
         // Clean up
         $this->entityManager->remove($foundCategories[0]);
         $this->entityManager->flush();
@@ -165,15 +165,15 @@ class CategoryRepositoryTest extends KernelTestCase
         $this->entityManager->flush();
 
         $orderedCategories = $this->repository->findAllOrderedByName();
-        
+
         // Should be ordered alphabetically
         $this->assertIsArray($orderedCategories);
         $this->assertGreaterThanOrEqual(3, count($orderedCategories));
-        
+
         // Clean up
         $this->entityManager->remove($category1);
         $this->entityManager->remove($category2);
         $this->entityManager->remove($category3);
         $this->entityManager->flush();
     }
-} 
+}

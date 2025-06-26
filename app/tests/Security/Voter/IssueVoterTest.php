@@ -21,7 +21,7 @@ class IssueVoterTest extends TestCase
         $this->adminUser = new AdminUser();
         $this->issue = new Issue();
         $this->issue->setTitle('Test Issue');
-        
+
         $this->token = $this->createMock(TokenInterface::class);
     }
 
@@ -29,7 +29,7 @@ class IssueVoterTest extends TestCase
     {
         $this->adminUser->setRoles(['ROLE_ADMIN']);
         $this->token->method('getUser')->willReturn($this->adminUser);
-        
+
         $this->assertEquals(1, $this->voter->vote($this->token, $this->issue, [IssueVoter::VIEW]));
         $this->assertEquals(1, $this->voter->vote($this->token, $this->issue, [IssueVoter::CREATE]));
         $this->assertEquals(1, $this->voter->vote($this->token, $this->issue, [IssueVoter::EDIT]));
@@ -40,7 +40,7 @@ class IssueVoterTest extends TestCase
     {
         $this->adminUser->setRoles(['ROLE_ADMIN']);
         $this->token->method('getUser')->willReturn($this->adminUser);
-        
+
         $this->assertEquals(0, $this->voter->vote($this->token, $this->issue, ['INVALID_ATTRIBUTE']));
     }
-} 
+}

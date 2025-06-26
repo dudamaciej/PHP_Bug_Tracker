@@ -21,7 +21,7 @@ class CategoryVoterTest extends TestCase
         $this->adminUser = new AdminUser();
         $this->category = new Category();
         $this->category->setName('Test Category');
-        
+
         $this->token = $this->createMock(TokenInterface::class);
     }
 
@@ -29,7 +29,7 @@ class CategoryVoterTest extends TestCase
     {
         $this->adminUser->setRoles(['ROLE_ADMIN']);
         $this->token->method('getUser')->willReturn($this->adminUser);
-        
+
         $this->assertEquals(1, $this->voter->vote($this->token, $this->category, [CategoryVoter::VIEW]));
         $this->assertEquals(1, $this->voter->vote($this->token, $this->category, [CategoryVoter::CREATE]));
         $this->assertEquals(1, $this->voter->vote($this->token, $this->category, [CategoryVoter::EDIT]));
@@ -40,7 +40,7 @@ class CategoryVoterTest extends TestCase
     {
         $this->adminUser->setRoles(['ROLE_ADMIN']);
         $this->token->method('getUser')->willReturn($this->adminUser);
-        
+
         $this->assertEquals(0, $this->voter->vote($this->token, $this->category, ['INVALID_ATTRIBUTE']));
     }
 
@@ -48,8 +48,8 @@ class CategoryVoterTest extends TestCase
     {
         $this->adminUser->setRoles(['ROLE_ADMIN']);
         $this->token->method('getUser')->willReturn($this->adminUser);
-        
+
         $result = $this->voter->vote($this->token, $this->category, [CategoryVoter::VIEW, CategoryVoter::EDIT]);
         $this->assertEquals(1, $result);
     }
-} 
+}

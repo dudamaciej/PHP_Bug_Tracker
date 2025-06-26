@@ -22,7 +22,7 @@ class IssueControllerTest extends WebTestCase
         $this->entityManager = static::getContainer()->get('doctrine')->getManager();
         $this->issueRepository = static::getContainer()->get(IssueRepository::class);
         $this->categoryRepository = static::getContainer()->get(CategoryRepository::class);
-        
+
         // Clear any existing data to avoid conflicts
         $this->entityManager->createQuery('DELETE FROM App\Entity\Issue')->execute();
         $this->entityManager->createQuery('DELETE FROM App\Entity\Category')->execute();
@@ -33,7 +33,7 @@ class IssueControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $this->client->request('GET', '/issue/');
-        
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('.container');
     }
@@ -52,7 +52,7 @@ class IssueControllerTest extends WebTestCase
         $this->client->loginUser($adminUser);
 
         $this->client->request('GET', '/issue/test-create');
-        
+
         $this->assertResponseRedirects('/issue/');
         $this->client->followRedirect();
         // Accept either success or error alert
@@ -66,7 +66,7 @@ class IssueControllerTest extends WebTestCase
     public function testTestCreateAsNonAdmin(): void
     {
         $this->client->request('GET', '/issue/test-create');
-        
+
         $this->assertResponseRedirects('/login');
     }
 
@@ -76,7 +76,7 @@ class IssueControllerTest extends WebTestCase
         $this->client->loginUser($adminUser);
 
         $this->client->request('GET', '/issue/new');
-        
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
     }
@@ -84,7 +84,7 @@ class IssueControllerTest extends WebTestCase
     public function testNewGetAsNonAdmin(): void
     {
         $this->client->request('GET', '/issue/new');
-        
+
         $this->assertResponseRedirects('/login');
     }
 
@@ -107,9 +107,9 @@ class IssueControllerTest extends WebTestCase
                 'status' => Issue::STATUS_OPEN,
                 'priority' => Issue::PRIORITY_MEDIUM,
                 'category' => $category->getId(),
-            ]
+            ],
         ]);
-        
+
         $this->assertResponseRedirects('/issue/');
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert-success');
@@ -125,9 +125,9 @@ class IssueControllerTest extends WebTestCase
                 'title' => '', // Empty title
                 'description' => 'Test Description',
                 'category' => 999, // Non-existent category
-            ]
+            ],
         ]);
-        
+
         $this->assertResponseIsSuccessful();
         // Check for the alert-danger class in the response
         $this->assertStringContainsString('alert-danger', $this->client->getResponse()->getContent());
@@ -153,8 +153,8 @@ class IssueControllerTest extends WebTestCase
         $this->entityManager->persist($issue);
         $this->entityManager->flush();
 
-        $this->client->request('GET', '/issue/' . $issue->getId());
-        
+        $this->client->request('GET', '/issue/'.$issue->getId());
+
         $this->assertResponseIsSuccessful();
         $this->assertStringContainsString('Test Issue', $this->client->getResponse()->getContent());
     }
@@ -162,7 +162,7 @@ class IssueControllerTest extends WebTestCase
     public function testShowNonExistentIssue(): void
     {
         $this->client->request('GET', '/issue/999');
-        
+
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
@@ -189,8 +189,8 @@ class IssueControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('GET', '/issue/' . $issue->getId() . '/edit');
-        
+        $this->client->request('GET', '/issue/'.$issue->getId().'/edit');
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
     }
@@ -198,7 +198,7 @@ class IssueControllerTest extends WebTestCase
     public function testEditGetAsNonAdmin(): void
     {
         $this->client->request('GET', '/issue/1/edit');
-        
+
         $this->assertResponseRedirects('/login');
     }
 
@@ -230,17 +230,17 @@ class IssueControllerTest extends WebTestCase
         $adminUser = $this->getExistingAdminUser();
         $this->client->loginUser($adminUser);
 
-        $this->client->request('POST', '/issue/' . $issue->getId() . '/edit', [
+        $this->client->request('POST', '/issue/'.$issue->getId().'/edit', [
             'issue' => [
                 'title' => 'Updated Issue',
                 'description' => 'Updated Description',
                 'status' => Issue::STATUS_IN_PROGRESS,
                 'priority' => Issue::PRIORITY_HIGH,
                 'category' => $category2->getId(),
-            ]
+            ],
         ]);
-        
-        $this->assertResponseRedirects('/issue/' . $issue->getId());
+
+        $this->assertResponseRedirects('/issue/'.$issue->getId());
         $this->client->followRedirect();
         $this->assertStringContainsString('Updated Issue', $this->client->getResponse()->getContent());
     }
@@ -271,8 +271,8 @@ class IssueControllerTest extends WebTestCase
         $this->client->loginUser($adminUser);
 
         // Test that the delete route exists and requires admin access
-        $this->client->request('POST', '/issue/' . $issueId . '/delete');
-        
+        $this->client->request('POST', '/issue/'.$issueId.'/delete');
+
         // Should redirect (either to index or show error)
         $this->assertResponseRedirects();
     }
@@ -280,7 +280,7 @@ class IssueControllerTest extends WebTestCase
     public function testDeleteAsNonAdmin(): void
     {
         $this->client->request('POST', '/issue/1/delete');
-        
+
         $this->assertResponseRedirects('/login');
     }
 
@@ -289,7 +289,7 @@ class IssueControllerTest extends WebTestCase
         // Get the existing admin user from fixtures
         $adminUser = $this->entityManager->getRepository(\App\Entity\AdminUser::class)
             ->findOneBy(['email' => 'admin@bugtracker.com']);
-        
+
         if (!$adminUser) {
             // Create one if it doesn't exist
             $adminUser = new \App\Entity\AdminUser();
@@ -299,7 +299,7 @@ class IssueControllerTest extends WebTestCase
             $this->entityManager->persist($adminUser);
             $this->entityManager->flush();
         }
-        
+
         return $adminUser;
     }
-} 
+}

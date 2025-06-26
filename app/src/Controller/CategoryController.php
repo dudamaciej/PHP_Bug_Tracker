@@ -32,8 +32,8 @@ class CategoryController extends AbstractController
     /**
      * Constructor.
      *
-     * @param CategoryService        $categoryService
-     * @param EntityManagerInterface $entityManager
+     * @param CategoryService         $categoryService
+     * @param EntityManagerInterface  $entityManager
      */
     public function __construct(private CategoryService $categoryService, private EntityManagerInterface $entityManager)
     {
@@ -59,7 +59,6 @@ class CategoryController extends AbstractController
      * Create a new category.
      *
      * @param Request $request
-     *
      * @return Response
      */
     #[Route('/new', name: 'category_new', methods: ['GET', 'POST'])]
@@ -107,7 +106,6 @@ class CategoryController extends AbstractController
      * Display a specific category.
      *
      * @param int $id
-     *
      * @return Response
      */
     #[Route('/{id}', name: 'category_show', methods: ['GET'])]
@@ -133,7 +131,6 @@ class CategoryController extends AbstractController
      *
      * @param Request $request
      * @param int     $id
-     *
      * @return Response
      */
     #[Route('/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
@@ -171,7 +168,6 @@ class CategoryController extends AbstractController
      *
      * @param Request $request
      * @param int     $id
-     *
      * @return Response
      */
     #[Route('/{id}/delete', name: 'category_delete', methods: ['POST'])]

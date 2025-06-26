@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Service;
 
-use App\Entity\Category;
 use App\Entity\Issue;
 use App\Repository\IssueRepository;
 use App\Service\IssueService;
@@ -38,7 +37,7 @@ class IssueServiceTest extends TestCase
     public function testGetIssuesWithFilter(): void
     {
         $expectedIssues = [new Issue()];
-        
+
         $this->issueRepository
             ->expects($this->once())
             ->method('findIssuesWithFilter')
@@ -46,14 +45,14 @@ class IssueServiceTest extends TestCase
             ->willReturn($expectedIssues);
 
         $result = $this->issueService->getIssuesWithFilter();
-        
+
         $this->assertEquals($expectedIssues, $result);
     }
 
     public function testCountIssuesWithFilter(): void
     {
         $expectedCount = 5;
-        
+
         $this->issueRepository
             ->expects($this->once())
             ->method('countIssuesWithFilter')
@@ -61,14 +60,14 @@ class IssueServiceTest extends TestCase
             ->willReturn($expectedCount);
 
         $result = $this->issueService->countIssuesWithFilter();
-        
+
         $this->assertEquals($expectedCount, $result);
     }
 
     public function testCreateIssueWithPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -90,7 +89,7 @@ class IssueServiceTest extends TestCase
     public function testCreateIssueWithoutPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -106,7 +105,7 @@ class IssueServiceTest extends TestCase
     public function testUpdateIssueWithPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -123,7 +122,7 @@ class IssueServiceTest extends TestCase
     public function testUpdateIssueWithoutPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -139,7 +138,7 @@ class IssueServiceTest extends TestCase
     public function testDeleteIssueWithPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -161,7 +160,7 @@ class IssueServiceTest extends TestCase
     public function testDeleteIssueWithoutPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->authorizationChecker
             ->expects($this->once())
             ->method('isGranted')
@@ -177,7 +176,7 @@ class IssueServiceTest extends TestCase
     public function testFindIssueWithPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->issueRepository
             ->expects($this->once())
             ->method('find')
@@ -189,14 +188,14 @@ class IssueServiceTest extends TestCase
             ->method('isGranted');
 
         $result = $this->issueService->findIssue(1);
-        
+
         $this->assertEquals($issue, $result);
     }
 
     public function testFindIssueWithoutPermission(): void
     {
         $issue = new Issue();
-        
+
         $this->issueRepository
             ->expects($this->once())
             ->method('find')
@@ -208,14 +207,14 @@ class IssueServiceTest extends TestCase
             ->method('isGranted');
 
         $result = $this->issueService->findIssue(1);
-        
+
         $this->assertEquals($issue, $result);
     }
 
     public function testGetAllIssuesWithAdminPermission(): void
     {
         $expectedIssues = [new Issue()];
-        
+
         // No authorization check needed anymore since getAllIssues is public
         $this->authorizationChecker
             ->expects($this->never())
@@ -227,14 +226,14 @@ class IssueServiceTest extends TestCase
             ->willReturn($expectedIssues);
 
         $result = $this->issueService->getAllIssues();
-        
+
         $this->assertEquals($expectedIssues, $result);
     }
 
     public function testGetAllIssuesWithoutAdminPermission(): void
     {
         $expectedIssues = [new Issue()];
-        
+
         // No authorization check needed anymore since getAllIssues is public
         $this->authorizationChecker
             ->expects($this->never())
@@ -246,7 +245,7 @@ class IssueServiceTest extends TestCase
             ->willReturn($expectedIssues);
 
         $result = $this->issueService->getAllIssues();
-        
+
         $this->assertEquals($expectedIssues, $result);
     }
-} 
+}

@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Issue entity for tracking bugs and feature requests.
  */
 #[ORM\Entity(repositoryClass: IssueRepository::class)]
-#[ORM\Table(name: "issue")]
+#[ORM\Table(name: 'issue')]
 class Issue
 {
     public const STATUS_OPEN = 'open';
@@ -97,8 +97,6 @@ class Issue
 
     /**
      * Get the issue ID.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -107,8 +105,6 @@ class Issue
 
     /**
      * Get the issue title.
-     *
-     * @return string|null
      */
     public function getTitle(): ?string
     {
@@ -117,10 +113,6 @@ class Issue
 
     /**
      * Set the issue title.
-     *
-     * @param string $title
-     *
-     * @return self
      */
     public function setTitle(string $title): self
     {
@@ -131,8 +123,6 @@ class Issue
 
     /**
      * Get the issue description.
-     *
-     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -141,10 +131,6 @@ class Issue
 
     /**
      * Set the issue description.
-     *
-     * @param string $description
-     *
-     * @return self
      */
     public function setDescription(string $description): self
     {
@@ -155,8 +141,6 @@ class Issue
 
     /**
      * Get the issue status.
-     *
-     * @return string|null
      */
     public function getStatus(): ?string
     {
@@ -165,10 +149,6 @@ class Issue
 
     /**
      * Set the issue status.
-     *
-     * @param string $status
-     *
-     * @return self
      */
     public function setStatus(string $status): self
     {
@@ -179,8 +159,6 @@ class Issue
 
     /**
      * Get the issue priority.
-     *
-     * @return string|null
      */
     public function getPriority(): ?string
     {
@@ -189,10 +167,6 @@ class Issue
 
     /**
      * Set the issue priority.
-     *
-     * @param string $priority
-     *
-     * @return self
      */
     public function setPriority(string $priority): self
     {
@@ -203,8 +177,6 @@ class Issue
 
     /**
      * Get the issue category.
-     *
-     * @return Category|null
      */
     public function getCategory(): ?Category
     {
@@ -213,10 +185,6 @@ class Issue
 
     /**
      * Set the issue category.
-     *
-     * @param Category|null $category
-     *
-     * @return self
      */
     public function setCategory(?Category $category): self
     {
@@ -227,8 +195,6 @@ class Issue
 
     /**
      * Get the issue author.
-     *
-     * @return AdminUser|null
      */
     public function getAuthor(): ?AdminUser
     {
@@ -237,10 +203,6 @@ class Issue
 
     /**
      * Set the issue author.
-     *
-     * @param AdminUser|null $author
-     *
-     * @return self
      */
     public function setAuthor(?AdminUser $author): self
     {
@@ -251,8 +213,6 @@ class Issue
 
     /**
      * Get the issue creation date.
-     *
-     * @return \DateTimeImmutable|null
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -261,10 +221,6 @@ class Issue
 
     /**
      * Set the issue creation date.
-     *
-     * @param \DateTimeImmutable $createdAt
-     *
-     * @return self
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
@@ -275,8 +231,6 @@ class Issue
 
     /**
      * Get available status options.
-     *
-     * @return array
      */
     public static function getStatusOptions(): array
     {
@@ -289,8 +243,6 @@ class Issue
 
     /**
      * Get available priority options.
-     *
-     * @return array
      */
     public static function getPriorityOptions(): array
     {
@@ -303,8 +255,6 @@ class Issue
 
     /**
      * Get available status choices for forms.
-     *
-     * @return array
      */
     public static function getStatusChoices(): array
     {
@@ -317,8 +267,6 @@ class Issue
 
     /**
      * Get available priority choices for forms.
-     *
-     * @return array
      */
     public static function getPriorityChoices(): array
     {

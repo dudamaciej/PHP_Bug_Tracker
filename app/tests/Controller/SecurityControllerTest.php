@@ -3,8 +3,6 @@
 namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityControllerTest extends WebTestCase
 {
@@ -18,7 +16,7 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginPage(): void
     {
         $this->client->request('GET', '/login');
-        
+
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
         $this->assertSelectorExists('input[name="_username"]');
@@ -28,12 +26,12 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginWithValidCredentials(): void
     {
         $this->client->request('GET', '/login');
-        
+
         $this->client->submitForm('Sign in', [
             '_username' => 'admin@bugtracker.com',
             '_password' => 'admin123',
         ]);
-        
+
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->assertResponseIsSuccessful();
@@ -42,12 +40,12 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginWithInvalidCredentials(): void
     {
         $this->client->request('GET', '/login');
-        
+
         $this->client->submitForm('Sign in', [
             '_username' => 'invalid@example.com',
             '_password' => 'wrongpassword',
         ]);
-        
+
         $this->assertResponseRedirects('/login');
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert-danger');
@@ -56,12 +54,12 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginWithEmptyCredentials(): void
     {
         $this->client->request('GET', '/login');
-        
+
         $this->client->submitForm('Sign in', [
             '_username' => '',
             '_password' => '',
         ]);
-        
+
         $this->assertResponseRedirects('/login');
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert-danger');
@@ -70,7 +68,7 @@ class SecurityControllerTest extends WebTestCase
     public function testLogout(): void
     {
         $this->client->request('GET', '/logout');
-        
+
         // The logout route should redirect or throw an exception
         $this->assertResponseRedirects();
     }
@@ -79,18 +77,18 @@ class SecurityControllerTest extends WebTestCase
     {
         // First login
         $this->client->request('GET', '/login');
-        
+
         $this->client->submitForm('Sign in', [
             '_username' => 'admin@bugtracker.com',
             '_password' => 'admin123',
         ]);
-        
+
         $this->assertResponseRedirects();
         $this->client->followRedirect();
-        
+
         // Try to access login page again when already logged in
         $this->client->request('GET', '/login');
-        
+
         // Should show the login page (no redirect for logged in users in this app)
         $this->assertResponseIsSuccessful();
     }
@@ -98,14 +96,14 @@ class SecurityControllerTest extends WebTestCase
     public function testLoginFormSubmissionWithValidCredentials(): void
     {
         $this->client->request('GET', '/login');
-        
+
         $this->client->submitForm('Sign in', [
             '_username' => 'admin@bugtracker.com',
             '_password' => 'admin123',
         ]);
-        
+
         $this->assertResponseRedirects();
         $this->client->followRedirect();
         $this->assertResponseIsSuccessful();
     }
-} 
+}

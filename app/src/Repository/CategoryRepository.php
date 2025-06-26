@@ -31,8 +31,6 @@ class CategoryRepository extends ServiceEntityRepository
 {
     /**
      * Constructor.
-     *
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,9 +39,6 @@ class CategoryRepository extends ServiceEntityRepository
 
     /**
      * Save a Category entity.
-     *
-     * @param Category $entity
-     * @param bool     $flush
      */
     public function save(Category $entity, bool $flush = false): void
     {
@@ -56,9 +51,6 @@ class CategoryRepository extends ServiceEntityRepository
 
     /**
      * Remove a Category entity.
-     *
-     * @param Category $entity
-     * @param bool     $flush
      */
     public function remove(Category $entity, bool $flush = false): void
     {

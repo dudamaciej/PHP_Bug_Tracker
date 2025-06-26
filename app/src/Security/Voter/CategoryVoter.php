@@ -31,13 +31,11 @@ class CategoryVoter extends Voter
      *
      * @param string $attribute The attribute to check
      * @param mixed  $subject   The subject to check
-     *
-     * @return bool
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array($attribute, [self::VIEW, self::EDIT, self::DELETE, self::CREATE])
-            && ($subject instanceof Category || $subject === null);
+            && ($subject instanceof Category || null === $subject);
     }
 
     /**
@@ -46,8 +44,6 @@ class CategoryVoter extends Voter
      * @param string         $attribute The attribute to vote on
      * @param mixed          $subject   The subject to vote on
      * @param TokenInterface $token     The security token
-     *
-     * @return bool
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
@@ -71,8 +67,6 @@ class CategoryVoter extends Voter
      *
      * @param Category|null $category The category to check
      * @param AdminUser     $user     The user to check
-     *
-     * @return bool
      */
     private function canView(?Category $category, AdminUser $user): bool
     {
@@ -83,8 +77,6 @@ class CategoryVoter extends Voter
      * Checks if user can create categories.
      *
      * @param AdminUser $user The user to check
-     *
-     * @return bool
      */
     private function canCreate(AdminUser $user): bool
     {
@@ -96,8 +88,6 @@ class CategoryVoter extends Voter
      *
      * @param Category  $category The category to check
      * @param AdminUser $user     The user to check
-     *
-     * @return bool
      */
     private function canEdit(Category $category, AdminUser $user): bool
     {
@@ -109,8 +99,6 @@ class CategoryVoter extends Voter
      *
      * @param Category  $category The category to check
      * @param AdminUser $user     The user to check
-     *
-     * @return bool
      */
     private function canDelete(Category $category, AdminUser $user): bool
     {
